@@ -10,14 +10,16 @@ typedef char esp32_task__line_buffer_t[128];
 void esp32_task__init(void);
 
 /**
- * Connects the ESP wifi module by reading wifi key and password from file system
+ * Connects the ESP wifi module by reading wifi key and password from file
+ * system
  */
 bool esp32_task__connect_wifi_by_reading_ssid_from_file(void);
 
 /**
  * Reads file system to retrieve IP and port that the user needs to connect on
  */
-bool esp32_task__get_tcp_server_information(esp32_task__line_buffer_t ip_or_hostname, uint16_t *port);
+bool esp32_task__get_tcp_server_information(
+    esp32_task__line_buffer_t ip_or_hostname, uint16_t *port);
 
 /**
  * RTOS task that can be created to test TCP connection

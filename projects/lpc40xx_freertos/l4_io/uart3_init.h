@@ -22,8 +22,10 @@ static inline void uart3_init(void) {
   static uint8_t rxq_storage[1024];
   static uint8_t txq_storage[1024];
 
-  QueueHandle_t rxq_handle = xQueueCreateStatic(sizeof(rxq_storage), sizeof(char), rxq_storage, &rxq_struct);
-  QueueHandle_t txq_handle = xQueueCreateStatic(sizeof(txq_storage), sizeof(char), txq_storage, &txq_struct);
+  QueueHandle_t rxq_handle = xQueueCreateStatic(
+      sizeof(rxq_storage), sizeof(char), rxq_storage, &rxq_struct);
+  QueueHandle_t txq_handle = xQueueCreateStatic(
+      sizeof(txq_storage), sizeof(char), txq_storage, &txq_struct);
 
   uart__enable_queues(UART__3, rxq_handle, txq_handle);
 }

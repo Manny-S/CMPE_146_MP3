@@ -26,8 +26,9 @@ void sleep(void *p);
 int main(void) {
   // Adds the ability for CLI commands
   sj2_cli__init();
+  printf("Hello\n");
 
-  xTaskCreate(sleep, "sleep", 500, NULL, PRIORITY_HIGH, NULL);
+  xTaskCreate(sleep, "sleep", 500, NULL, 0, NULL);
 
   vTaskStartScheduler();
   return 0;

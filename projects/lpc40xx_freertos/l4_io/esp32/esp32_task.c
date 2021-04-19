@@ -25,7 +25,8 @@ static void trim_newline_chars(char *line) {
   }
 }
 
-static bool read_lines_from_file(const char *filename, char *lines[], size_t line_count, size_t max_line_length) {
+static bool read_lines_from_file(const char *filename, char *lines[],
+                                 size_t line_count, size_t max_line_length) {
   FIL file;
   FRESULT fr;
   bool file_opened = false;
@@ -75,29 +76,35 @@ bool esp32_task__connect_wifi_by_reading_ssid_from_file(void) {
   esp32_task__line_buffer_t password = {0};
   char *lines[] = {ssid, password};
 
-  if (read_lines_from_file(esp32__wifi_filename, lines, 2, sizeof(esp32_task__line_buffer_t))) {
-    printf("Using %s/%s from file %s to connect to wifi\n", ssid, password, esp32__wifi_filename);
+  if (read_lines_from_file(esp32__wifi_filename, lines, 2,
+                           sizeof(esp32_task__line_buffer_t))) {
+    printf("Using %s/%s from file %s to connect to wifi\n", ssid, password,
+           esp32__wifi_filename);
     esp32__wifi_connect(ssid, password);
     success = true;
   } else {
-    printf("ERROR: Unable to read %s to read WIFI SSID and Key\n", esp32__wifi_filename);
+    printf("ERROR: Unable to read %s to read WIFI SSID and Key\n",
+           esp32__wifi_filename);
   }
 
   return success;
 }
 
-bool esp32_task__get_tcp_server_information(esp32_task__line_buffer_t ip_or_hostname, uint16_t *port) {
+bool esp32_task__get_tcp_server_information(
+    esp32_task__line_buffer_t ip_or_hostname, uint16_t *port) {
   bool success = false;
 
   esp32_task__line_buffer_t port_string = {0};
   char *lines[] = {ip_or_hostname, port_string};
 
-  if (read_lines_from_file(esp32__server_filename, lines, 2, sizeof(esp32_task__line_buffer_t))) {
+  if (read_lines_from_file(esp32__server_filename, lines, 2,
+                           sizeof(esp32_task__line_buffer_t))) {
     printf("TCP server information: %s:%s\n", ip_or_hostname, port_string);
     *port = (uint16_t)atoi(port_string);
     success = true;
   } else {
-    printf("ERROR: Unable to read TCP server information from %s\n", esp32__server_filename);
+    printf("ERROR: Unable to read TCP server information from %s\n",
+           esp32__server_filename);
   }
 
   return success;
@@ -124,7 +131,8 @@ void esp32_tcp_hello_world_task(void *params) {
     vTaskSuspend(NULL);
   }
 
-// Sample code if you purely interact over UART3 CLI command and wish to see response of ESP module
+// Sample code if you purely interact over UART3 CLI command and wish to see
+// response of ESP module
 #if 0
   while (true) {
     char byte = 0;
@@ -133,7 +141,8 @@ void esp32_tcp_hello_world_task(void *params) {
   }
 #endif
 
-// Sample code that will connect to TCP/IP server once, and continuously send data
+// Sample code that will connect to TCP/IP server once, and continuously send
+// data
 #if 1
   esp32__tcp_connect(ip_or_hostname, port);
   unsigned counter = 0;

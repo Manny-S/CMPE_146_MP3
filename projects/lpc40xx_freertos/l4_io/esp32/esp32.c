@@ -31,12 +31,14 @@ static void esp32__print_response(char *response) {
   }
 }
 
-static bool esp32__receive_response(char *response_buffer, size_t response_buffer_max_size) {
+static bool esp32__receive_response(char *response_buffer,
+                                    size_t response_buffer_max_size) {
   bool timeout = false;
   memset(response_buffer, 0, response_buffer_max_size);
 
   for (size_t index = 0; index < response_buffer_max_size; index++) {
-    if (!uart__get(esp32_uart, &response_buffer[index], esp32__default_timeout_ms)) {
+    if (!uart__get(esp32_uart, &response_buffer[index],
+                   esp32__default_timeout_ms)) {
       timeout = true;
     }
 
@@ -55,14 +57,16 @@ static bool esp32__receive_response(char *response_buffer, size_t response_buffe
   return timeout;
 }
 
-void esp32__init(uart_e esp32_uart_interface) { esp32_uart = esp32_uart_interface; }
+void esp32__init(uart_e esp32_uart_interface) {
+  esp32_uart = esp32_uart_interface;
+}
 
 void esp32__clear_receive_buffer(uint32_t timeout_ms) {
   char byte = 0;
 
   while (uart__get(esp32_uart, &byte, timeout_ms)) {
-    // Somehow printing excessive chars crashes the 'Telemetry' serial console (sjsu-dev2.github.io)
-    // fprintf(stderr, "%c", byte);
+    // Somehow printing excessive chars crashes the 'Telemetry' serial console
+    // (sjsu-dev2.github.io) fprintf(stderr, "%c", byte);
   }
 }
 
@@ -79,7 +83,8 @@ bool esp32__wait_for_response(const char *expected_response) {
 
   if (NULL != expected_response) {
     while (!esp32__receive_response(response, sizeof(response))) {
-      // Check if expected response is at the beginning; this will ignore the '\r\n' chars of response
+      // Check if expected response is at the beginning; this will ignore the
+      // '\r\n' chars of response
       if (response == strstr(response, expected_response)) {
         matched_response = true;
         break;
@@ -94,7 +99,9 @@ bool esp32__wait_for_response(const char *expected_response) {
   return matched_response;
 }
 
-bool esp32__wait_for_successful_command(const char *command, const char *expected_response, const char *error_message) {
+bool esp32__wait_for_successful_command(const char *command,
+                                        const char *expected_response,
+                                        const char *error_message) {
   bool success = false;
 
   if (NULL != command && NULL != expected_response && NULL != error_message) {
@@ -106,7 +113,8 @@ bool esp32__wait_for_successful_command(const char *command, const char *expecte
         break;
       }
 
-      printf(" ERROR: ESP32 not responding to AT command: %s: (%s)\n", command, error_message);
+      printf(" ERROR: ESP32 not responding to AT command: %s: (%s)\n", command,
+             error_message);
       vTaskDelay(esp32__default_timeout_ms);
     }
   }
@@ -117,7 +125,8 @@ bool esp32__wait_for_successful_command(const char *command, const char *expecte
 bool esp32__wifi_connect(const char *ssid, const char *password) {
   esp32__buffer wifi_connect_command = {0};
   if (NULL != ssid && NULL != password) {
-    snprintf(wifi_connect_command, sizeof(wifi_connect_command), "AT+CWJAP=\"%s\",\"%s\"", ssid, password);
+    snprintf(wifi_connect_command, sizeof(wifi_connect_command),
+             "AT+CWJAP=\"%s\",\"%s\"", ssid, password);
   }
 
   /* Expected response
@@ -125,7 +134,8 @@ bool esp32__wifi_connect(const char *ssid, const char *password) {
    * 'WIFI GOT IP'
    * 'OK'
    */
-  return esp32__wait_for_successful_command(wifi_connect_command, "OK", "WIFI connection");
+  return esp32__wait_for_successful_command(wifi_connect_command, "OK",
+                                            "WIFI connection");
 }
 
 bool esp32__tcp_connect(const char *host_or_ip, uint16_t tcp_server_port) {
@@ -133,20 +143,25 @@ bool esp32__tcp_connect(const char *host_or_ip, uint16_t tcp_server_port) {
   esp32__buffer command = {0};
 
   if (NULL != host_or_ip) {
-    snprintf(command, sizeof(command), "AT+CIPSTART=\"TCP\",\"%s\",%u", host_or_ip, (unsigned)tcp_server_port);
+    snprintf(command, sizeof(command), "AT+CIPSTART=\"TCP\",\"%s\",%u",
+             host_or_ip, (unsigned)tcp_server_port);
   }
 
-  return esp32__wait_for_successful_command(command, "OK", "Connect to TCP as client");
+  return esp32__wait_for_successful_command(command, "OK",
+                                            "Connect to TCP as client");
 }
 
-static bool esp32__cipsend_packet(const char *buffer, size_t packet_size_in_bytes) {
+static bool esp32__cipsend_packet(const char *buffer,
+                                  size_t packet_size_in_bytes) {
   bool success = false;
 
-  for (size_t byte_counter = 0; byte_counter < packet_size_in_bytes; byte_counter++) {
+  for (size_t byte_counter = 0; byte_counter < packet_size_in_bytes;
+       byte_counter++) {
     const char byte_to_send = buffer[byte_counter];
 
-    // Some ESP modules indicate that we have to 'escape' the data, but this logic
-    // was tested and deemed not necessary for the ESP module used for test
+    // Some ESP modules indicate that we have to 'escape' the data, but this
+    // logic was tested and deemed not necessary for the ESP module used for
+    // test
     const char escape_byte = '\\';
     if ('\0' == byte_to_send || escape_byte == byte_to_send) {
       // uart__put(esp32_uart, escape_byte, UINT32_MAX);
@@ -171,16 +186,20 @@ bool esp32__cipsend(const char *buffer, size_t length) {
   if (NULL != buffer && length > 0U) {
     esp32__buffer command = {0};
     size_t bytes_remaining = length;
-    const size_t max_packet_size = 1000; // Prefer sizes less than 1460 bytes (below typical MTU)
+    const size_t max_packet_size =
+        1000; // Prefer sizes less than 1460 bytes (below typical MTU)
 
     while (bytes_remaining > 0U) {
-      const size_t packet_size = (bytes_remaining > max_packet_size) ? max_packet_size : bytes_remaining;
+      const size_t packet_size = (bytes_remaining > max_packet_size)
+                                     ? max_packet_size
+                                     : bytes_remaining;
 
       snprintf(command, sizeof(command), "AT+CIPSEND=%u", packet_size);
       esp32__send_command(command);
       esp32__wait_for_response("OK");
 
-      // ESP32 should send the '>' char which is to indicate that we can now send the data
+      // ESP32 should send the '>' char which is to indicate that we can now
+      // send the data
       char byte = 0;
       if (!uart__get(esp32_uart, &byte, esp32__default_timeout_ms)) {
         printf("ERROR: Expected the > char from ESP32\n");

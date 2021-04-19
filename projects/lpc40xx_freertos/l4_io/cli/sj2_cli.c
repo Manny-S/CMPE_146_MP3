@@ -8,42 +8,52 @@
 #include "common_macros.h"
 
 /// Output all CLI to the standard output
-static void sj2_cli__output_function(app_cli__argument_t argument, const char *string);
+static void sj2_cli__output_function(app_cli__argument_t argument,
+                                     const char *string);
 static void sj2_cli__task(void *p);
 static void sj2_cli__get_line(sl_string_t input_line);
-static void sj2_cli__handle_backspace_logic(sl_string_t input_line, char input_byte);
+static void sj2_cli__handle_backspace_logic(sl_string_t input_line,
+                                            char input_byte);
 
 void sj2_cli__init(void) {
-  const char *separator = "--------------------------------------------------------------------------------\r\n";
+  const char *separator = "----------------------------------------------------"
+                          "----------------------------\r\n";
 
   static app_cli_s sj2_cli_struct;
   sj2_cli_struct = app_cli__initialize(4, sj2_cli__output_function, separator);
 
   // Need static struct that does not go out of scope
-  static app_cli__command_s uart3_transmit = {.command_name = "uart3",
-                                              .help_message_for_command = "Send a string to UART3",
-                                              .app_cli_handler = cli__uart3_transmit};
+  static app_cli__command_s uart3_transmit = {
+      .command_name = "uart3",
+      .help_message_for_command = "Send a string to UART3",
+      .app_cli_handler = cli__uart3_transmit};
 
-  static app_cli__command_s crash = {.command_name = "crash",
-                                     .help_message_for_command =
-                                         "Deliberately crashes the system to demonstrate how to debug a crash",
-                                     .app_cli_handler = cli__crash_me};
-  static app_cli__command_s i2c = {.command_name = "i2c",
-                                   .help_message_for_command = "i2c read 0xDD 0xRR <n>\n"
-                                                               "i2c write 0xDD 0xRR <value> <value> ...",
-                                   .app_cli_handler = cli__i2c};
-  static app_cli__command_s task_list = {.command_name = "tasklist",
-                                         .help_message_for_command =
-                                             "Outputs list of RTOS tasks, CPU and stack usage.\n"
-                                             "tasklist <time>' will display CPU utilization within this time window.",
-                                         .app_cli_handler = cli__task_list};
+  static app_cli__command_s crash = {
+      .command_name = "crash",
+      .help_message_for_command =
+          "Deliberately crashes the system to demonstrate how to debug a crash",
+      .app_cli_handler = cli__crash_me};
+  static app_cli__command_s i2c = {
+      .command_name = "i2c",
+      .help_message_for_command = "i2c read 0xDD 0xRR <n>\n"
+                                  "i2c write 0xDD 0xRR <value> <value> ...",
+      .app_cli_handler = cli__i2c};
+  static app_cli__command_s task_list = {
+      .command_name = "tasklist",
+      .help_message_for_command =
+          "Outputs list of RTOS tasks, CPU and stack usage.\n"
+          "tasklist <time>' will display CPU utilization within this time "
+          "window.",
+      .app_cli_handler = cli__task_list};
 
-  static app_cli__command_s task_control = {.command_name = "taskcontrol",
-                                            .help_message_for_command = "Used to suspend or resume a task.\n"
-                                                                        "taskcontrol <suspend | resume> <task_name>",
-                                            .app_cli_handler = cli__task_control};
+  static app_cli__command_s task_control = {
+      .command_name = "taskcontrol",
+      .help_message_for_command = "Used to suspend or resume a task.\n"
+                                  "taskcontrol <suspend | resume> <task_name>",
+      .app_cli_handler = cli__task_control};
 
-  // Add your CLI commands in descending sorted order to make them appear in sorted order
+  // Add your CLI commands in descending sorted order to make them appear in
+  // sorted order
   app_cli__add_command_handler(&sj2_cli_struct, &uart3_transmit);
   app_cli__add_command_handler(&sj2_cli_struct, &task_list);
   app_cli__add_command_handler(&sj2_cli_struct, &i2c);
@@ -54,11 +64,12 @@ void sj2_cli__init(void) {
   // at high priority to at least be able to see what is going on
   static StackType_t task_stack[2048 / sizeof(StackType_t)];
   static StaticTask_t task_struct;
-  xTaskCreateStatic(sj2_cli__task, "cli", ARRAY_SIZE(task_stack), &sj2_cli_struct, PRIORITY_HIGH, task_stack,
-                    &task_struct);
+  xTaskCreateStatic(sj2_cli__task, "cli", ARRAY_SIZE(task_stack),
+                    &sj2_cli_struct, PRIORITY_HIGH, task_stack, &task_struct);
 }
 
-static void sj2_cli__output_function(app_cli__argument_t argument, const char *string) {
+static void sj2_cli__output_function(app_cli__argument_t argument,
+                                     const char *string) {
   while (*string != '\0') {
     putchar(*string);
     ++string;
@@ -71,7 +82,8 @@ static void sj2_cli__task(void *task_parameter) {
   char string_memory[128];
 
   // Start by greeting the use with the 'help' command
-  sl_string_t user_input = sl_string__initialize_from(string_memory, sizeof(string_memory), "help");
+  sl_string_t user_input =
+      sl_string__initialize_from(string_memory, sizeof(string_memory), "help");
 
   while (true) {
     app_cli__process_input(sj2_cli_struct, unused_cli_param, user_input);
@@ -93,7 +105,8 @@ static void sj2_cli__get_line(sl_string_t input_line) {
   }
 }
 
-static void sj2_cli__handle_backspace_logic(sl_string_t input_line, char input_byte) {
+static void sj2_cli__handle_backspace_logic(sl_string_t input_line,
+                                            char input_byte) {
   const char backspace = '\b';
 
   if (backspace == input_byte) {
