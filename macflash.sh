@@ -1,0 +1,1 @@
+python nxp-programmer/flash.py --port /dev/cu.SLAB_USBtoUART
