@@ -22,7 +22,9 @@
 #include <string.h>
 
 typedef char songname_t[32];
+typedef char songbyte_t[512];
 QueueHandle_t Q_songname;
+QueueHandle_t Q_songdata;
 
 void mp3_reader_task(void *p);
 
@@ -31,6 +33,7 @@ int main(void) {
   sj2_cli__init();
 
   Q_songname = xQueueCreate(1, sizeof(songname_t));
+  Q_songdata = xQueueCreate(2, sizeof(songbyte_t));
 
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
 
@@ -40,9 +43,26 @@ int main(void) {
 
 void mp3_reader_task(void *p) {
   songname_t name;
+  songbyte_t chunk;
+
+  FIL file;
+  FRESULT result;
+  UINT readCount;
+
   while (1) {
     if (xQueueReceive(Q_songname, &name[0], portMAX_DELAY)) {
       printf("Received song to play: %s\n", name);
+
+      result = f_open(&file, name, FA_OPEN_EXISTING);
+      if (FR_OK == result) {
+        while (!f_eof(&file)) {
+          f_read(&file, chunk, sizeof(songbyte_t), &readCount);
+          xQueueSend(Q_songdata, &chunk[0], portMAX_DELAY);
+        }
+        f_close(&file);
+      } else {
+        printf("ERROR: File not found\n");
+      }
     }
   }
 }
