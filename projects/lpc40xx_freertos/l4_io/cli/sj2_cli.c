@@ -51,11 +51,13 @@ void sj2_cli__init(void) {
       .help_message_for_command = "Used to suspend or resume a task.\n"
                                   "taskcontrol <suspend | resume> <task_name>",
       .app_cli_handler = cli__task_control};
-  
-   static app_cli__command_s play={
-      .command_name = "Play",.help_message_for_command ="to play song and send 32-byte song-name for Queue item sieze",
-     .app_cli_handler=cli__mp3_play };   
 
+  static app_cli__command_s play = {
+      .command_name = "play",
+      .help_message_for_command =
+          "Play song and send 32-byte song-name for Queue item size\n"
+          "play <name>.mp3",
+      .app_cli_handler = cli__mp3_play};
 
   // Add your CLI commands in descending sorted order to make them appear in
   // sorted order

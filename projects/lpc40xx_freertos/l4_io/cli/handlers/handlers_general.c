@@ -84,14 +84,14 @@ app_cli_status_e cli__task_control(app_cli__argument_t argument,
   return APP_CLI_STATUS__SUCCESS;
 }
 
+extern QueueHandle_t Q_songname;
+
 app_cli_status_e cli__mp3_play(app_cli__argument_t argument,
                                sl_string_t user_input_minus_command_name,
                                app_cli__print_string_function cli_output) {
-  // user_input_minus_command_name is actually a 'char *' pointer type
-  // We tell the Queue to copy 32 bytes of songname from this location
-  xQueueSend(Q_songname, user_input_minus_command_name, portMAX_DELAY);
-  
-  printf("Sent %s over to the Q_songname\n", user_input_minus_command_name);
+  sl_string_t song_name = user_input_minus_command_name;
+  sl_string__erase(song_name, "play ");
+  xQueueSend(Q_songname, song_name, portMAX_DELAY);
   return APP_CLI_STATUS__SUCCESS;
 }
 
