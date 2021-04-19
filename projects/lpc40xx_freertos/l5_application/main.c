@@ -21,6 +21,8 @@
 #include "ff.h"
 #include <string.h>
 
+extern QueueHandle_t Q_songname;
+
 void sleep(void *p);
 
 int main(void) {
