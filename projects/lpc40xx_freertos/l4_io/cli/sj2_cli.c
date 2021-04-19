@@ -51,6 +51,11 @@ void sj2_cli__init(void) {
       .help_message_for_command = "Used to suspend or resume a task.\n"
                                   "taskcontrol <suspend | resume> <task_name>",
       .app_cli_handler = cli__task_control};
+  
+   static app_cli__command_s play={
+      .command_name = "Play",.help_message_for_command ="to play song and send 32-byte song-name for Queue item sieze",
+     .app_cli_handler=cli__mp3_play };   
+
 
   // Add your CLI commands in descending sorted order to make them appear in
   // sorted order
@@ -59,6 +64,7 @@ void sj2_cli__init(void) {
   app_cli__add_command_handler(&sj2_cli_struct, &i2c);
   app_cli__add_command_handler(&sj2_cli_struct, &crash);
   app_cli__add_command_handler(&sj2_cli_struct, &task_control);
+  app_cli__add_command_handler(&sj2_cli_struct, &play);
 
   // In case other tasks are hogging the CPU, it would be useful to run the CLI
   // at high priority to at least be able to see what is going on
