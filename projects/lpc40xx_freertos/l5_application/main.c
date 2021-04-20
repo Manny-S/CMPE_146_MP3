@@ -27,6 +27,7 @@ QueueHandle_t Q_songname;
 QueueHandle_t Q_songdata;
 
 void mp3_reader_task(void *p);
+void mp3_player_task(void *p);
 
 int main(void) {
   // Adds the ability for CLI commands
@@ -36,6 +37,7 @@ int main(void) {
   Q_songdata = xQueueCreate(2, sizeof(songbyte_t));
 
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
+  xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
 
   vTaskStartScheduler();
   return 0;
@@ -62,6 +64,18 @@ void mp3_reader_task(void *p) {
         f_close(&file);
       } else {
         printf("ERROR: File not found\n");
+      }
+    }
+  }
+}
+
+void mp3_player_task(void *p) {
+  songbyte_t chunk;
+
+  while (1) {
+    if (xQueueReceive(Q_songdata, &chunk[0], portMAX_DELAY)) {
+      for (int i = 0; i < 512; i++) {
+        putchar(chunk[i]);
       }
     }
   }
