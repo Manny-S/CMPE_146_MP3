@@ -19857,18 +19857,17 @@ void mp3_player_task(void *p) {
   songbyte_t chunk;
 
   while (1) {
-    if (xQueueReceive(Q_songdata, &chunk[0], portMAX_DELAY)) {
+    if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
     58ca:	4e0c      	ldr	r6, [pc, #48]	; (58fc <mp3_player_task+0x34>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:79
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:78
       for (int i = 0; i < 512; i++) {
-        // putchar(chunk[i]);
         printf("%x", chunk[i]);
     58cc:	4f0c      	ldr	r7, [pc, #48]	; (5900 <mp3_player_task+0x38>)
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:72
 void mp3_player_task(void *p) {
     58ce:	f5ad 7d01 	sub.w	sp, sp, #516	; 0x204
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:76
-    if (xQueueReceive(Q_songdata, &chunk[0], portMAX_DELAY)) {
+    if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
     58d2:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
     58d6:	4669      	mov	r1, sp
     58d8:	6830      	ldr	r0, [r6, #0]
@@ -19879,14 +19878,14 @@ void mp3_player_task(void *p) {
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:77
       for (int i = 0; i < 512; i++) {
     58e4:	2400      	movs	r4, #0
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:79 (discriminator 3)
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:78 (discriminator 3)
         printf("%x", chunk[i]);
     58e6:	f815 1b01 	ldrb.w	r1, [r5], #1
     58ea:	4638      	mov	r0, r7
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:77 (discriminator 3)
       for (int i = 0; i < 512; i++) {
     58ec:	3401      	adds	r4, #1
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:79 (discriminator 3)
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:78 (discriminator 3)
         printf("%x", chunk[i]);
     58ee:	f001 faf5 	bl	6edc <iprintf>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:77 (discriminator 3)
@@ -19907,7 +19906,7 @@ void mp3_reader_task(void *p) {
     if (xQueueReceive(Q_songname, &name[0], portMAX_DELAY)) {
     5906:	4c18      	ldr	r4, [pc, #96]	; (5968 <mp3_reader_task+0x64>)
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:62
-          xQueueSend(Q_songdata, &chunk[0], portMAX_DELAY);
+          xQueueSend(Q_songdata, &chunk, portMAX_DELAY);
     5908:	4d18      	ldr	r5, [pc, #96]	; (596c <mp3_reader_task+0x68>)
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:46
 void mp3_reader_task(void *p) {
@@ -19926,8 +19925,8 @@ void mp3_reader_task(void *p) {
     5920:	4813      	ldr	r0, [pc, #76]	; (5970 <mp3_reader_task+0x6c>)
     5922:	f001 fadb 	bl	6edc <iprintf>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:58
-      result = f_open(&file, name, FA_OPEN_EXISTING);
-    5926:	2200      	movs	r2, #0
+      result = f_open(&file, name, FA_READ);
+    5926:	2201      	movs	r2, #1
     5928:	a902      	add	r1, sp, #8
     592a:	a88a      	add	r0, sp, #552	; 0x228
     592c:	f7fb fdfa 	bl	1524 <f_open>
@@ -19953,7 +19952,7 @@ void mp3_reader_task(void *p) {
     594a:	a88a      	add	r0, sp, #552	; 0x228
     594c:	f7fb fed0 	bl	16f0 <f_read>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:62
-          xQueueSend(Q_songdata, &chunk[0], portMAX_DELAY);
+          xQueueSend(Q_songdata, &chunk, portMAX_DELAY);
     5950:	2300      	movs	r3, #0
     5952:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
     5956:	a90a      	add	r1, sp, #40	; 0x28

@@ -55,11 +55,11 @@ void mp3_reader_task(void *p) {
     if (xQueueReceive(Q_songname, &name[0], portMAX_DELAY)) {
       printf("Received song to play: %s\n", name);
 
-      result = f_open(&file, name, FA_OPEN_EXISTING);
+      result = f_open(&file, name, FA_READ);
       if (FR_OK == result) {
         while (!f_eof(&file)) {
           f_read(&file, chunk, sizeof(songbyte_t), &readCount);
-          xQueueSend(Q_songdata, &chunk[0], portMAX_DELAY);
+          xQueueSend(Q_songdata, &chunk, portMAX_DELAY);
         }
         f_close(&file);
       } else {
@@ -73,7 +73,7 @@ void mp3_player_task(void *p) {
   songbyte_t chunk;
 
   while (1) {
-    if (xQueueReceive(Q_songdata, &chunk[0], portMAX_DELAY)) {
+    if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
       for (int i = 0; i < 512; i++) {
         printf("%x", chunk[i]);
       }
