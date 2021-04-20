@@ -75,7 +75,7 @@ void mp3_player_task(void *p) {
   while (1) {
     if (xQueueReceive(Q_songdata, &chunk[0], portMAX_DELAY)) {
       for (int i = 0; i < 512; i++) {
-        putchar(chunk[i]);
+        printf("%x", chunk[i]);
       }
     }
   }
