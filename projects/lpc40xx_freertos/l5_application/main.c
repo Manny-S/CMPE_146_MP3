@@ -27,6 +27,9 @@ typedef char songbyte_t[512];
 QueueHandle_t Q_songname;
 QueueHandle_t Q_songdata;
 
+static const uint32_t play_pause = (1 << 9);
+TaskHandle_t MP3PlayPause=NULL;
+
 gpio_s CS; //for SPI
 gpio_s DREQ; //Data Request input
 
@@ -88,5 +91,40 @@ void mp3_player_task(void *p) {
         printf("%x", chunk[i]);
       }
     }
+  }
+}
+
+void play_pause_button (void *p){
+  bool play_status=false;
+  uint8_t alternative_status=1;
+  while (1){
+    vTaskDelay(100);
+    if(gpio1__get_level(play_pause))
+    {
+      while(gpio1__get_level(play_pause))
+      {
+        vTaskDelay(1);
+      }
+      play_status=true;
+    }
+    else
+    {
+      play_status=false;
+    }
+
+    if(play_status)
+    {
+      if (alternative_status)
+      {
+        vTaskResume(MP3PlayPause);
+        alternative_status--;
+      }
+      else
+      {
+          vTaskSuspend(MP3PlayPause);
+          alternative_status--;
+      }
+    }
+    vTaskDelay(1);
   }
 }
