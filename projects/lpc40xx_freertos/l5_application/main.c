@@ -20,11 +20,15 @@
 #include "event_groups.h"
 #include "ff.h"
 #include <string.h>
+#include "ssp2.h"
 
 typedef char songname_t[32];
 typedef char songbyte_t[512];
 QueueHandle_t Q_songname;
 QueueHandle_t Q_songdata;
+
+gpio_s CS; //for SPI
+gpio_s DREQ; //Data Request input
 
 void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
@@ -35,6 +39,12 @@ int main(void) {
 
   Q_songname = xQueueCreate(1, sizeof(songname_t));
   Q_songdata = xQueueCreate(2, sizeof(songbyte_t));
+
+  CS = gpio__construct_as_output(4, 28);
+  gpio__set(CS); //set to high
+  DREQ = gpio__construct_as_input(0, 6);
+
+  ssp2__initialize(12000); //data sheet says 12MHZ
 
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
