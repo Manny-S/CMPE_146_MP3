@@ -19,19 +19,19 @@
 
 #include "event_groups.h"
 #include "ff.h"
-#include <string.h>
 #include "ssp2.h"
+#include <string.h>
 
 typedef char songname_t[32];
 typedef char songbyte_t[512];
 QueueHandle_t Q_songname;
 QueueHandle_t Q_songdata;
 
-static const uint32_t play_pause = (1 << 9);
-TaskHandle_t MP3PlayPause=NULL;
+static const uint32_t play_pause = (1 << 19);
+TaskHandle_t MP3PlayPause = NULL;
 
-gpio_s CS; //for SPI
-gpio_s DREQ; //Data Request input
+gpio_s CS;   // for SPI
+gpio_s DREQ; // Data Request input
 
 void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
@@ -44,10 +44,10 @@ int main(void) {
   Q_songdata = xQueueCreate(2, sizeof(songbyte_t));
 
   CS = gpio__construct_as_output(4, 28);
-  gpio__set(CS); //set to high
+  gpio__set(CS); // set to high
   DREQ = gpio__construct_as_input(0, 6);
 
-  ssp2__initialize(12000); //data sheet says 12MHZ
+  ssp2__initialize(12288); // data sheet says 12MHZ
 
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
@@ -88,41 +88,39 @@ void mp3_player_task(void *p) {
   while (1) {
     if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
       for (int i = 0; i < 512; i++) {
+        while (!gpio__get(DREQ)) {
+          vTaskDelay(10);
+        }
         printf("%x", chunk[i]);
+        gpio__reset(CS);
+        ssp2__exchange_byte(chunk[i]);
+        gpio__set(CS);
       }
     }
   }
 }
 
-void play_pause_button (void *p){
-  bool play_status=false;
-  uint8_t alternative_status=1;
-  while (1){
+void play_pause_button(void *p) {
+  bool play_status = false;
+  uint8_t alternative_status = 1;
+  while (1) {
     vTaskDelay(100);
-    if(gpio1__get_level(play_pause))
-    {
-      while(gpio1__get_level(play_pause))
-      {
+    if (gpio1__get_level(play_pause)) {
+      while (gpio1__get_level(play_pause)) {
         vTaskDelay(1);
       }
-      play_status=true;
-    }
-    else
-    {
-      play_status=false;
+      play_status = true;
+    } else {
+      play_status = false;
     }
 
-    if(play_status)
-    {
-      if (alternative_status)
-      {
+    if (play_status) {
+      if (alternative_status) {
         vTaskResume(MP3PlayPause);
         alternative_status--;
-      }
-      else
-      {
-          vTaskSuspend(MP3PlayPause);
-          alternative_status--;
+      } else {
+        vTaskSuspend(MP3PlayPause);
+        alternative_status--;
       }
     }
     vTaskDelay(1);
