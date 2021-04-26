@@ -7,3 +7,10 @@
 *.lst
 *.map
 *.o
+_build_lpc40xx_freertos/lpc40xx_freertos.bin
+_build_lpc40xx_freertos/lpc40xx_freertos.elf
+_build_lpc40xx_freertos/lpc40xx_freertos.hex
+_build_lpc40xx_freertos/lpc40xx_freertos.lst
+_build_lpc40xx_freertos/lpc40xx_freertos.map
+_build_lpc40xx_freertos/objects/gpio.o
+_build_lpc40xx_freertos/objects/main.o
