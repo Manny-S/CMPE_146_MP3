@@ -1,4 +1,9 @@
 .DS_store
 *.json
-*.dblite
-_build_lpc40xx_freertos/
+*.sconsign.dblite
+*.bin
+*.elf
+*.hex
+*.lst
+*.map
+*.o
