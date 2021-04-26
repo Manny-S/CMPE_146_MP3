@@ -1,3 +1,4 @@
 .DS_store
-.vscode/settings.json
 *.json
+*.dblite
+_build_lpc40xx_freertos/
