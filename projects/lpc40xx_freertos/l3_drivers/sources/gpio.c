@@ -111,3 +111,5 @@ void gpio__toggle(gpio_s gpio) {
     gpio__set(gpio);
   }
 }
+
+bool gpio1__get_level(uint8_t pin_num) { return LPC_GPIO1->PIN & (1 << pin_num); }
