@@ -51,7 +51,7 @@ int main(void) {
   XDCS = gpio__construct_as_output(0, 26);
 
   gpio__reset(RST); // When the XRESET -signal is driven low, VS1053b is reset
-  gpio__set(CS);    // set to high
+  gpio__reset(CS);  // set to low
   gpio__set(XDCS);
 
   ssp2__initialize(12288); // data sheet says 12MHZ

@@ -20115,9 +20115,9 @@ int main(void) {
     5a14:	7828      	ldrb	r0, [r5, #0]
     5a16:	f7ff fa9d 	bl	4f54 <gpio__reset>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:54
-  gpio__set(CS);    // set to high
+  gpio__reset(CS);  // set to high
     5a1a:	7830      	ldrb	r0, [r6, #0]
-    5a1c:	f7ff fa8c 	bl	4f38 <gpio__set>
+    5a1c:	f7ff fa9a 	bl	4f54 <gpio__reset>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:55
   gpio__set(XDCS);
     5a20:	7820      	ldrb	r0, [r4, #0]
