@@ -30,8 +30,10 @@ QueueHandle_t Q_songdata;
 static const uint32_t play_pause = (1 << 19);
 TaskHandle_t MP3PlayPause = NULL;
 
-gpio_s CS;   // for SPI
+gpio_s CS;
 gpio_s DREQ; // Data Request input
+gpio_s RST;
+gpio_s XDCS;
 
 void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
@@ -44,14 +46,21 @@ int main(void) {
   Q_songdata = xQueueCreate(2, sizeof(songbyte_t));
 
   CS = gpio__construct_as_output(4, 28);
-  gpio__set(CS); // set to high
   DREQ = gpio__construct_as_input(0, 6);
+  RST = gpio__construct_as_output(0, 8);
+  XDCS = gpio__construct_as_output(0, 26);
+
+  gpio__reset(RST); // When the XRESET -signal is driven low, VS1053b is reset
+  gpio__set(CS);    // set to high
+  gpio__set(XDCS);
 
   ssp2__initialize(12288); // data sheet says 12MHZ
 
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
 
+  gpio__set(RST); // When XRESET is asseted, all output pins go to their default
+                  // states
   vTaskStartScheduler();
   return 0;
 }
@@ -87,14 +96,18 @@ void mp3_player_task(void *p) {
 
   while (1) {
     if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
-      for (int i = 0; i < 512; i++) {
+      for (int i = 0; i < 512;) {
         while (!gpio__get(DREQ)) {
           vTaskDelay(10);
         }
-        printf("%x", chunk[i]);
-        gpio__reset(CS);
-        ssp2__exchange_byte(chunk[i]);
-        gpio__set(CS);
+        gpio__reset(XDCS);
+        for (int j = 0; j < 32;) {
+          ssp2__exchange_byte(chunk[i + j]);
+          printf("%x", chunk[i + j]);
+          j++;
+        }
+        gpio__set(XDCS);
+        i = i + 32;
       }
     }
   }
