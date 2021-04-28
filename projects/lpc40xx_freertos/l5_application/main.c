@@ -27,8 +27,15 @@ typedef char songbyte_t[512];
 QueueHandle_t Q_songname;
 QueueHandle_t Q_songdata;
 
-static const uint32_t play_pause = (1 << 19);
-TaskHandle_t MP3PlayPause = NULL;
+// static const uint32_t play_pause = (1 << 19);
+// TaskHandle_t MP3PlayPause = NULL;
+
+const uint8_t READ = 0x3;
+const uint8_t WRITE = 0x2;
+const uint8_t SCI_MODE = 0x0;
+const uint8_t SCI_STATUS = 0x1;
+const uint8_t SCI_VOL = 0xB;
+const uint8_t DUMB = 0xFF;
 
 gpio_s CS;
 gpio_s DREQ; // Data Request input
@@ -37,6 +44,7 @@ gpio_s XDCS;
 
 void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
+void read_test(void);
 
 int main(void) {
   // Adds the ability for CLI commands
@@ -50,19 +58,32 @@ int main(void) {
   RST = gpio__construct_as_output(0, 8);
   XDCS = gpio__construct_as_output(0, 26);
 
-  gpio__reset(RST); // When the XRESET -signal is driven low, VS1053b is reset
-  gpio__reset(CS);  // set to low
+  gpio__reset(RST);
+  gpio__set(CS);
   gpio__set(XDCS);
 
   ssp2__initialize(12288); // data sheet says 12MHZ
 
+  gpio__set(RST);
+
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
 
-  gpio__set(RST); // When XRESET is asseted, all output pins go to their default
-                  // states
+  read_test();
   vTaskStartScheduler();
   return 0;
+}
+void read_test(void) {
+  uint8_t byte1 = 0xFF;
+  uint8_t byte2 = 0xFF;
+  gpio__reset(CS);
+  ssp2__exchange_byte(READ);
+  ssp2__exchange_byte(SCI_MODE);
+  byte1 = ssp2__exchange_byte(DUMB);
+  byte2 = ssp2__exchange_byte(DUMB);
+  gpio__set(CS);
+
+  printf("%x %x\n", byte1, byte2);
 }
 
 void mp3_reader_task(void *p) {
@@ -113,29 +134,29 @@ void mp3_player_task(void *p) {
   }
 }
 
-void play_pause_button(void *p) {
-  bool play_status = false;
-  uint8_t alternative_status = 1;
-  while (1) {
-    vTaskDelay(100);
-    if (gpio1__get_level(play_pause)) {
-      while (gpio1__get_level(play_pause)) {
-        vTaskDelay(1);
-      }
-      play_status = true;
-    } else {
-      play_status = false;
-    }
+// void play_pause_button(void *p) {
+//   bool play_status = false;
+//   uint8_t alternative_status = 1;
+//   while (1) {
+//     vTaskDelay(100);
+//     if (gpio1__get_level(play_pause)) {
+//       while (gpio1__get_level(play_pause)) {
+//         vTaskDelay(1);
+//       }
+//       play_status = true;
+//     } else {
+//       play_status = false;
+//     }
 
-    if (play_status) {
-      if (alternative_status) {
-        vTaskResume(MP3PlayPause);
-        alternative_status--;
-      } else {
-        vTaskSuspend(MP3PlayPause);
-        alternative_status--;
-      }
-    }
-    vTaskDelay(1);
-  }
-}
+//     if (play_status) {
+//       if (alternative_status) {
+//         vTaskResume(MP3PlayPause);
+//         alternative_status--;
+//       } else {
+//         vTaskSuspend(MP3PlayPause);
+//         alternative_status--;
+//       }
+//     }
+//     vTaskDelay(1);
+//   }
+// }
