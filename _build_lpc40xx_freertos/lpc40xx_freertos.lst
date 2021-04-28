@@ -6,13 +6,13 @@ EXEC_P, HAS_SYMS, D_PAGED
 start address 0x000000e5
 
 Program Header:
-0x70000001 off    0x0001d7ec vaddr 0x0000d7ec paddr 0x0000d7ec align 2**2
+0x70000001 off    0x0001d7f4 vaddr 0x0000d7f4 paddr 0x0000d7f4 align 2**2
          filesz 0x00000008 memsz 0x00000008 flags r--
     LOAD off    0x00010000 vaddr 0x00000000 paddr 0x00000000 align 2**16
-         filesz 0x0000d7f4 memsz 0x0000d7f4 flags r-x
-    LOAD off    0x00020000 vaddr 0x10000000 paddr 0x0000d7f4 align 2**16
+         filesz 0x0000d7fc memsz 0x0000d7fc flags r-x
+    LOAD off    0x00020000 vaddr 0x10000000 paddr 0x0000d7fc align 2**16
          filesz 0x00000384 memsz 0x00000384 flags rw-
-    LOAD off    0x00020388 vaddr 0x10000388 paddr 0x0000db78 align 2**16
+    LOAD off    0x00020388 vaddr 0x10000388 paddr 0x0000db80 align 2**16
          filesz 0x00000000 memsz 0x000010d0 flags rw-
     LOAD off    0x00030000 vaddr 0x20000000 paddr 0x20000000 align 2**16
          filesz 0x00000000 memsz 0x00000028 flags rw-
@@ -20,24 +20,24 @@ private flags = 5000400: [Version5 EABI] [hard-float ABI]
 
 Sections:
 Idx Name             Size      VMA       LMA       File off  Algn  Flags
-  0 .text            0000d7ec  00000000  00000000  00010000  2**4  CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .ARM.exidx       00000008  0000d7ec  0000d7ec  0001d7ec  2**2  CONTENTS, ALLOC, LOAD, READONLY, DATA
-  2 .data            00000384  10000000  0000d7f4  00020000  2**2  CONTENTS, ALLOC, LOAD, DATA
-  3 .bss             000010d0  10000388  0000db78  00020388  2**3  ALLOC
+  0 .text            0000d7f4  00000000  00000000  00010000  2**4  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .ARM.exidx       00000008  0000d7f4  0000d7f4  0001d7f4  2**2  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .data            00000384  10000000  0000d7fc  00020000  2**2  CONTENTS, ALLOC, LOAD, DATA
+  3 .bss             000010d0  10000388  0000db80  00020388  2**3  ALLOC
   4 .persistent_ram2 00000028  20000000  20000000  00030000  2**2  ALLOC
-  5 .debug_info      00025ae9  00000000  00000000  00020384  2**0  CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev    0000679a  00000000  00000000  00045e6d  2**0  CONTENTS, READONLY, DEBUGGING
-  7 .debug_aranges   00000f90  00000000  00000000  0004c607  2**0  CONTENTS, READONLY, DEBUGGING
-  8 .debug_ranges    00001ce8  00000000  00000000  0004d597  2**0  CONTENTS, READONLY, DEBUGGING
-  9 .debug_line      00012a61  00000000  00000000  0004f27f  2**0  CONTENTS, READONLY, DEBUGGING
- 10 .debug_str       00006a19  00000000  00000000  00061ce0  2**0  CONTENTS, READONLY, DEBUGGING
- 11 .comment         00000076  00000000  00000000  000686f9  2**0  CONTENTS, READONLY
- 12 .ARM.attributes  00000032  00000000  00000000  0006876f  2**0  CONTENTS, READONLY
- 13 .debug_frame     00004570  00000000  00000000  000687a4  2**2  CONTENTS, READONLY, DEBUGGING
- 14 .debug_loc       0001367b  00000000  00000000  0006cd14  2**0  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info      00025b97  00000000  00000000  00020384  2**0  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev    000067ab  00000000  00000000  00045f1b  2**0  CONTENTS, READONLY, DEBUGGING
+  7 .debug_aranges   00000f98  00000000  00000000  0004c6c6  2**0  CONTENTS, READONLY, DEBUGGING
+  8 .debug_ranges    00001cf0  00000000  00000000  0004d65e  2**0  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line      00012a8d  00000000  00000000  0004f34e  2**0  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str       00006a24  00000000  00000000  00061ddb  2**0  CONTENTS, READONLY, DEBUGGING
+ 11 .comment         00000076  00000000  00000000  000687ff  2**0  CONTENTS, READONLY
+ 12 .ARM.attributes  00000032  00000000  00000000  00068875  2**0  CONTENTS, READONLY
+ 13 .debug_frame     0000458c  00000000  00000000  000688a8  2**2  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_loc       0001367b  00000000  00000000  0006ce34  2**0  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00000000 l    d  .text	00000000 .text
-0000d7ec l    d  .ARM.exidx	00000000 .ARM.exidx
+0000d7f4 l    d  .ARM.exidx	00000000 .ARM.exidx
 10000000 l    d  .data	00000000 .data
 10000388 l    d  .bss	00000000 .bss
 20000000 l    d  .persistent_ram2	00000000 .persistent_ram2
@@ -275,9 +275,9 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 strstr.c
 00000000 l    df *ABS*	00000000 strtod.c
 00007420 l     F .text	00000038 sulp
-0000d5ec l     O .text	00000014 fpi.7522
-0000d600 l     O .text	00000014 fpinan.7558
-0000d618 l     O .text	00000028 tinytens
+0000d5f4 l     O .text	00000014 fpi.7522
+0000d608 l     O .text	00000014 fpinan.7558
+0000d620 l     O .text	00000028 tinytens
 00000000 l    df *ABS*	00000000 strtol.c
 00007ffc l     F .text	000000f0 _strtol_l.isra.0
 00000000 l    df *ABS*	00000000 vsnprintf.c
@@ -301,7 +301,7 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 lib_a-memchr.o
 00000000 l    df *ABS*	00000000 mlock.c
 00000000 l    df *ABS*	00000000 mprec.c
-0000d7b8 l     O .text	0000000c p05.7444
+0000d7c0 l     O .text	0000000c p05.7444
 00000000 l    df *ABS*	00000000 nano-mallocr.c
 00000000 l    df *ABS*	00000000 nano-mallocr.c
 00000000 l    df *ABS*	00000000 nano-vfprintf.c
@@ -380,7 +380,7 @@ SYMBOL TABLE:
 00004dd8 g     F .text	0000000c board_io__get_led3
 0000385c g     F .text	000000bc xQueueGenericSendFromISR
 00009c28 g     F .text	00000068 _Balloc
-0000d7f4 g       .ARM.exidx	00000000 __exidx_end
+0000d7fc g       .ARM.exidx	00000000 __exidx_end
 00005460 g     F .text	00000030 lpc_peripheral__enable_interrupt
 0000ba18 g     F .text	0000008a .hidden __gtdf2
 00004c6c g     F .text	00000010 vRunTimeStatIsrExit
@@ -391,7 +391,7 @@ SYMBOL TABLE:
 10001454 g     O .bss	00000004 errno
 0000ab1c g     F .text	000001e8 _scanf_i
 0000ae86 g     F .text	00000004 __seofread
-0000d7f4 g       .ARM.exidx	00000000 _etext
+0000d7fc g       .ARM.exidx	00000000 _etext
 0000bab4 g     F .text	00000010 .hidden __aeabi_cdcmple
 00002c34 g     F .text	00000028 sl_string__initialize
 0000567c g     F .text	00000060 uart__init
@@ -429,7 +429,7 @@ SYMBOL TABLE:
 00003360 g     F .text	00000058 vPortValidateInterruptPriority
 0000543c g     F .text	00000024 lpc_peripheral__is_powered_on
 00002164 g     F .text	00000004 _fstat
-0000d6f0 g     O .text	000000c8 __mprec_tens
+0000d6f8 g     O .text	000000c8 __mprec_tens
 0000523c g     F .text	000000b0 i2c__initialize
 000031a0 g     F .text	00000064 xPortPendSVHandler
 0000815c g     F .text	0000001c vsnprintf
@@ -465,17 +465,17 @@ SYMBOL TABLE:
 0000b288 g     F .text	00000276 .hidden __adddf3
 20008000 g       *ABS*	00000000 _heap_end
 0000a200 g     F .text	000000a0 __b2d
-0000d7ec g       .text	00000000 __exidx_start
+0000d7f4 g       .text	00000000 __exidx_start
 1000144c g     O .bss	00000001 __lock___env_recursive_mutex
 0000b5f4 g     F .text	00000254 .hidden __aeabi_dmul
 00002130 g     F .text	00000028 _isatty
 1000144d g     O .bss	00000001 __lock___sinit_recursive_mutex
-0000d5a0 g     O .text	00000004 _global_impure_ptr
+0000d5a8 g     O .text	00000004 _global_impure_ptr
 0000a434 g     F .text	0000004c _realloc_r
 00007364 g     F .text	00000044 strncasecmp
 00004e58 g     F .text	00000028 gpio__enable_pull_down_resistors
 00005718 g     F .text	00000070 uart__enable_queues
-0000d6c8 g     O .text	00000028 __mprec_bigtens
+0000d6d0 g     O .text	00000028 __mprec_bigtens
 00009d34 g     F .text	0000007c __s2b
 00004f54 g     F .text	0000001c gpio__reset
 00004f38 g     F .text	0000001c gpio__set
@@ -533,7 +533,7 @@ SYMBOL TABLE:
 00009f84 g     F .text	0000009c __pow5mult
 0000b588 g     F .text	0000006a .hidden __aeabi_ul2d
 00002dfe g     F .text	00000016 sl_string__first_index_of
-0000d650 g     O .text	00000020 __sf_fake_stderr
+0000d658 g     O .text	00000020 __sf_fake_stderr
 00004f90 g     F .text	00000048 hw_timer__enable
 00005f0c g     F .text	00000002 __retarget_lock_release_recursive
 00000398 g     F .text	0000003c startup__initialize_ram
@@ -613,7 +613,7 @@ SYMBOL TABLE:
 000057f8 g     F .text	00000054 uart__polled_get
 0000a418 g     F .text	0000001c _calloc_r
 00002ad4 g     F .text	0000002c sys_time__get_uptime_us
-0000d670 g     O .text	00000020 __sf_fake_stdin
+0000d678 g     O .text	00000020 __sf_fake_stdin
 00005f0a g     F .text	00000002 __retarget_lock_acquire_recursive
 00005f80 g     F .text	00000010 memset
 000053b0 g     F .text	00000018 i2c__detect
@@ -679,7 +679,7 @@ SYMBOL TABLE:
 0000a1b4 g     F .text	0000004c __ulp
 00004834 g     F .text	0000000c vTaskMissedYield
 00004d90 g     F .text	00000010 board_io__sd_card_ds
-0000d6b0 g     O .text	0000000c _C_numeric_locale
+0000d6b8 g     O .text	0000000c _C_numeric_locale
 00008104 g     F .text	00000058 _vsniprintf_r
 0000026c g     F .text	00000018 crash__record_get
 00001c70 g     F .text	00000020 sd_card__update_status
@@ -718,15 +718,15 @@ SYMBOL TABLE:
 0000bb54 g     F .text	0000004e .hidden __aeabi_d2iz
 00001954 g     F .text	00000012 ff_req_grant
 000081c0 g     F .text	00000014 vsiscanf
-0000d7f4 g       *ABS*	00000000 _bdata_lma
+0000d7fc g       *ABS*	00000000 _bdata_lma
 000044a4 g     F .text	00000048 vTaskDelay
 00009210 g     F .text	0000000c __sfp_lock_release
-0000d690 g     O .text	00000020 __sf_fake_stdout
+0000d698 g     O .text	00000020 __sf_fake_stdout
 000072c0 g     F .text	00000040 siprintf
 0000ae00 g     F .text	00000064 __sccl
 00005ddc g     F .text	00000008 atoi
 000049b0 g     F .text	00000020 xTaskGetSchedulerState
-0000d49e g     O .text	00000101 _ctype_
+0000d4a4 g     O .text	00000101 _ctype_
 00004b10 g     F .text	000000b0 vTaskPriorityDisinheritAfterTimeout
 000021dc g     F .text	0000001c _read
 000000e4 g       .text	00000000 __init_array_start
@@ -1479,7 +1479,7 @@ startup__init_bss_sram():
     sram_ptr++;
      3bc:	e7f4      	b.n	3a8 <startup__initialize_ram+0x10>
      3be:	bf00      	nop
-     3c0:	0000d7f4 	.word	0x0000d7f4
+     3c0:	0000d7fc 	.word	0x0000d7fc
      3c4:	10000000 	.word	0x10000000
      3c8:	10000384 	.word	0x10000384
      3cc:	10000388 	.word	0x10000388
@@ -8427,7 +8427,7 @@ app_cli__process_input():
     23d4:	0000c5ff 	.word	0x0000c5ff
     23d8:	0000c5a8 	.word	0x0000c5a8
     23dc:	0000c5b9 	.word	0x0000c5b9
-    23e0:	0000d5a8 	.word	0x0000d5a8
+    23e0:	0000d5b0 	.word	0x0000d5b0
 
 000023e4 <sj2_cli__output_function>:
 sj2_cli__output_function():
@@ -11342,7 +11342,7 @@ sl_string__erase_int():
     2fda:	460c      	mov	r4, r1
     2fdc:	e7ec      	b.n	2fb8 <sl_string__erase_int+0x24>
     2fde:	bf00      	nop
-    2fe0:	0000d49f 	.word	0x0000d49f
+    2fe0:	0000d4a5 	.word	0x0000d4a5
 
 00002fe4 <sl_string__trim_end>:
 sl_string__trim_end():
@@ -19850,15 +19850,15 @@ uart__put():
 
 000058c8 <mp3_reader_task>:
 mp3_reader_task():
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:89
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:103
   gpio__set(CS);
 
-  printf("%x %x\n", byte1, byte2);
+  printf("READ: %x %x\n", byte1, byte2);
 }
 
 void mp3_reader_task(void *p) {
     58c8:	b530      	push	{r4, r5, lr}
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:98
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:112
   FIL file;
   FRESULT result;
   UINT readCount;
@@ -19866,7 +19866,7 @@ void mp3_reader_task(void *p) {
   while (1) {
     if (xQueueReceive(Q_songname, &name[0], portMAX_DELAY)) {
     58ca:	4c18      	ldr	r4, [pc, #96]	; (592c <mp3_reader_task+0x64>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:105
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:119
 
       result = f_open(&file, name, FA_READ);
       if (FR_OK == result) {
@@ -19874,10 +19874,10 @@ void mp3_reader_task(void *p) {
           f_read(&file, chunk, sizeof(songbyte_t), &readCount);
           xQueueSend(Q_songdata, &chunk, portMAX_DELAY);
     58cc:	4d18      	ldr	r5, [pc, #96]	; (5930 <mp3_reader_task+0x68>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:89
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:103
 void mp3_reader_task(void *p) {
     58ce:	f2ad 4d54 	subw	sp, sp, #1108	; 0x454
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:98
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:112
     if (xQueueReceive(Q_songname, &name[0], portMAX_DELAY)) {
     58d2:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
     58d6:	a902      	add	r1, sp, #8
@@ -19885,40 +19885,40 @@ void mp3_reader_task(void *p) {
     58da:	f7fe f86f 	bl	39bc <xQueueReceive>
     58de:	2800      	cmp	r0, #0
     58e0:	d0f7      	beq.n	58d2 <mp3_reader_task+0xa>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:99
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:113
       printf("Received song to play: %s\n", name);
     58e2:	a902      	add	r1, sp, #8
     58e4:	4813      	ldr	r0, [pc, #76]	; (5934 <mp3_reader_task+0x6c>)
     58e6:	f001 fb71 	bl	6fcc <iprintf>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:101
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:115
       result = f_open(&file, name, FA_READ);
     58ea:	2201      	movs	r2, #1
     58ec:	a902      	add	r1, sp, #8
     58ee:	a88a      	add	r0, sp, #552	; 0x228
     58f0:	f7fb fe18 	bl	1524 <f_open>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:102
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:116
       if (FR_OK == result) {
     58f4:	b9b0      	cbnz	r0, 5924 <mp3_reader_task+0x5c>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:103
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:117
         while (!f_eof(&file)) {
     58f6:	9a8f      	ldr	r2, [sp, #572]	; 0x23c
     58f8:	9b8d      	ldr	r3, [sp, #564]	; 0x234
     58fa:	429a      	cmp	r2, r3
     58fc:	d103      	bne.n	5906 <mp3_reader_task+0x3e>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:107
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:121
         }
         f_close(&file);
     58fe:	a88a      	add	r0, sp, #552	; 0x228
     5900:	f7fc f805 	bl	190e <f_close>
     5904:	e7e5      	b.n	58d2 <mp3_reader_task+0xa>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:104
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:118
           f_read(&file, chunk, sizeof(songbyte_t), &readCount);
     5906:	ab01      	add	r3, sp, #4
     5908:	a90a      	add	r1, sp, #40	; 0x28
     590a:	f44f 7200 	mov.w	r2, #512	; 0x200
     590e:	a88a      	add	r0, sp, #552	; 0x228
     5910:	f7fb feee 	bl	16f0 <f_read>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:105
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:119
           xQueueSend(Q_songdata, &chunk, portMAX_DELAY);
     5914:	2300      	movs	r3, #0
     5916:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
@@ -19926,7 +19926,7 @@ void mp3_reader_task(void *p) {
     591c:	6828      	ldr	r0, [r5, #0]
     591e:	f7fd fec7 	bl	36b0 <xQueueGenericSend>
     5922:	e7e8      	b.n	58f6 <mp3_reader_task+0x2e>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:109
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:123
       } else {
         printf("ERROR: File not found\n");
     5924:	4804      	ldr	r0, [pc, #16]	; (5938 <mp3_reader_task+0x70>)
@@ -19939,7 +19939,7 @@ void mp3_reader_task(void *p) {
 
 0000593c <mp3_player_task>:
 mp3_player_task():
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:115
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:129
       }
     }
   }
@@ -19947,22 +19947,22 @@ mp3_player_task():
 
 void mp3_player_task(void *p) {
     593c:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:124
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:138
     if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
       for (int i = 0; i < 512;) {
         while (!gpio__get(DREQ)) {
-          vTaskDelay(10);
+          vTaskDelay(1);
         }
         gpio__reset(XDCS);
     5940:	4f1b      	ldr	r7, [pc, #108]	; (59b0 <mp3_player_task+0x74>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:119
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:133
     if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
     5942:	f8df 9070 	ldr.w	r9, [pc, #112]	; 59b4 <mp3_player_task+0x78>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:115
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:129
 void mp3_player_task(void *p) {
     5946:	f5ad 7d01 	sub.w	sp, sp, #516	; 0x204
     594a:	46ba      	mov	sl, r7
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:119
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:133
     if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
     594c:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
     5950:	4669      	mov	r1, sp
@@ -19970,65 +19970,65 @@ void mp3_player_task(void *p) {
     5956:	f7fe f831 	bl	39bc <xQueueReceive>
     595a:	2800      	cmp	r0, #0
     595c:	d0f6      	beq.n	594c <mp3_player_task+0x10>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:120
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:134
       for (int i = 0; i < 512;) {
     595e:	2400      	movs	r4, #0
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:121
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:135
         while (!gpio__get(DREQ)) {
     5960:	f8df 8054 	ldr.w	r8, [pc, #84]	; 59b8 <mp3_player_task+0x7c>
     5964:	e002      	b.n	596c <mp3_player_task+0x30>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:122
-          vTaskDelay(10);
-    5966:	200a      	movs	r0, #10
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:136
+          vTaskDelay(1);
+    5966:	2001      	movs	r0, #1
     5968:	f7fe fd9c 	bl	44a4 <vTaskDelay>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:121
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:135
         while (!gpio__get(DREQ)) {
     596c:	f898 0000 	ldrb.w	r0, [r8]
     5970:	f7ff fad0 	bl	4f14 <gpio__get>
     5974:	2800      	cmp	r0, #0
     5976:	d0f6      	beq.n	5966 <mp3_player_task+0x2a>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:124
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:138
         gpio__reset(XDCS);
     5978:	7838      	ldrb	r0, [r7, #0]
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:127
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:141
         for (int j = 0; j < 32;) {
           ssp2__exchange_byte(chunk[i + j]);
           printf("%x", chunk[i + j]);
     597a:	f8df b040 	ldr.w	fp, [pc, #64]	; 59bc <mp3_player_task+0x80>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:124
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:138
         gpio__reset(XDCS);
     597e:	f7ff fae9 	bl	4f54 <gpio__reset>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:125
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:139
         for (int j = 0; j < 32;) {
     5982:	eb0d 0604 	add.w	r6, sp, r4
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:124
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:138
         gpio__reset(XDCS);
     5986:	2520      	movs	r5, #32
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:126
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:140
           ssp2__exchange_byte(chunk[i + j]);
     5988:	7830      	ldrb	r0, [r6, #0]
     598a:	f7ff fe05 	bl	5598 <ssp2__exchange_byte>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:127
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:141
           printf("%x", chunk[i + j]);
     598e:	f816 1b01 	ldrb.w	r1, [r6], #1
     5992:	4658      	mov	r0, fp
     5994:	f001 fb1a 	bl	6fcc <iprintf>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:125
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:139
         for (int j = 0; j < 32;) {
     5998:	3d01      	subs	r5, #1
     599a:	d1f5      	bne.n	5988 <mp3_player_task+0x4c>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:130
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:144
           j++;
         }
         gpio__set(XDCS);
     599c:	f89a 0000 	ldrb.w	r0, [sl]
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:131
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:145
         i = i + 32;
     59a0:	3420      	adds	r4, #32
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:130
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:144
         gpio__set(XDCS);
     59a2:	f7ff fac9 	bl	4f38 <gpio__set>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:120
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:134
       for (int i = 0; i < 512;) {
     59a6:	f5b4 7f00 	cmp.w	r4, #512	; 0x200
     59aa:	d1df      	bne.n	596c <mp3_player_task+0x30>
@@ -20041,46 +20041,46 @@ void mp3_player_task(void *p) {
 
 000059c0 <read_test>:
 read_test():
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:76
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:90
 void read_test(void) {
     59c0:	b570      	push	{r4, r5, r6, lr}
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:79
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:93
   gpio__reset(CS);
     59c2:	4c0e      	ldr	r4, [pc, #56]	; (59fc <read_test+0x3c>)
     59c4:	7820      	ldrb	r0, [r4, #0]
     59c6:	f7ff fac5 	bl	4f54 <gpio__reset>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:80
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:94
   ssp2__exchange_byte(READ);
     59ca:	2003      	movs	r0, #3
     59cc:	f7ff fde4 	bl	5598 <ssp2__exchange_byte>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:81
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:95
   ssp2__exchange_byte(SCI_MODE);
     59d0:	2000      	movs	r0, #0
     59d2:	f7ff fde1 	bl	5598 <ssp2__exchange_byte>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:82
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:96
   byte1 = ssp2__exchange_byte(DUMB);
     59d6:	20ff      	movs	r0, #255	; 0xff
     59d8:	f7ff fdde 	bl	5598 <ssp2__exchange_byte>
     59dc:	4605      	mov	r5, r0
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:83
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:97
   byte2 = ssp2__exchange_byte(DUMB);
     59de:	20ff      	movs	r0, #255	; 0xff
     59e0:	f7ff fdda 	bl	5598 <ssp2__exchange_byte>
     59e4:	4606      	mov	r6, r0
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:84
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:98
   gpio__set(CS);
     59e6:	7820      	ldrb	r0, [r4, #0]
     59e8:	f7ff faa6 	bl	4f38 <gpio__set>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:86
-  printf("%x %x\n", byte1, byte2);
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:100
+  printf("READ: %x %x\n", byte1, byte2);
     59ec:	4632      	mov	r2, r6
     59ee:	4629      	mov	r1, r5
     59f0:	4803      	ldr	r0, [pc, #12]	; (5a00 <read_test+0x40>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:87
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:101
 }
     59f2:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:86
-  printf("%x %x\n", byte1, byte2);
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:100
+  printf("READ: %x %x\n", byte1, byte2);
     59f6:	f001 bae9 	b.w	6fcc <iprintf>
     59fa:	bf00      	nop
     59fc:	10001449 	.word	0x10001449
@@ -20088,97 +20088,97 @@ void read_test(void) {
 
 00005a04 <main>:
 main():
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:49
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:50
 int main(void) {
     5a04:	b573      	push	{r0, r1, r4, r5, r6, lr}
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:51
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:52
   sj2_cli__init();
     5a06:	f7fc fd33 	bl	2470 <sj2_cli__init>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:53
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:54
   Q_songname = xQueueCreate(1, sizeof(songname_t));
     5a0a:	2200      	movs	r2, #0
     5a0c:	2120      	movs	r1, #32
     5a0e:	2001      	movs	r0, #1
     5a10:	f7fd fe28 	bl	3664 <xQueueGenericCreate>
     5a14:	4b26      	ldr	r3, [pc, #152]	; (5ab0 <main+0xac>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:56
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:57
   CS = gpio__construct_as_output(4, 28);
     5a16:	4e27      	ldr	r6, [pc, #156]	; (5ab4 <main+0xb0>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:53
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:54
   Q_songname = xQueueCreate(1, sizeof(songname_t));
     5a18:	6018      	str	r0, [r3, #0]
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:54
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:55
   Q_songdata = xQueueCreate(2, sizeof(songbyte_t));
     5a1a:	2200      	movs	r2, #0
     5a1c:	f44f 7100 	mov.w	r1, #512	; 0x200
     5a20:	2002      	movs	r0, #2
     5a22:	f7fd fe1f 	bl	3664 <xQueueGenericCreate>
     5a26:	4b24      	ldr	r3, [pc, #144]	; (5ab8 <main+0xb4>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:58
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:59
   RST = gpio__construct_as_output(0, 8);
     5a28:	4c24      	ldr	r4, [pc, #144]	; (5abc <main+0xb8>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:54
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:55
   Q_songdata = xQueueCreate(2, sizeof(songbyte_t));
     5a2a:	6018      	str	r0, [r3, #0]
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:56
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:57
   CS = gpio__construct_as_output(4, 28);
     5a2c:	211c      	movs	r1, #28
     5a2e:	2004      	movs	r0, #4
     5a30:	f7ff fa5c 	bl	4eec <gpio__construct_as_output>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:57
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:58
   DREQ = gpio__construct_as_input(0, 6);
     5a34:	2106      	movs	r1, #6
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:56
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:57
   CS = gpio__construct_as_output(4, 28);
     5a36:	7030      	strb	r0, [r6, #0]
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:57
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:58
   DREQ = gpio__construct_as_input(0, 6);
     5a38:	2000      	movs	r0, #0
     5a3a:	f7ff fa33 	bl	4ea4 <gpio__construct_as_input>
     5a3e:	4b20      	ldr	r3, [pc, #128]	; (5ac0 <main+0xbc>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:59
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:60
   XDCS = gpio__construct_as_output(0, 26);
     5a40:	4d20      	ldr	r5, [pc, #128]	; (5ac4 <main+0xc0>)
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:57
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:58
   DREQ = gpio__construct_as_input(0, 6);
     5a42:	7018      	strb	r0, [r3, #0]
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:58
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:59
   RST = gpio__construct_as_output(0, 8);
     5a44:	2108      	movs	r1, #8
     5a46:	2000      	movs	r0, #0
     5a48:	f7ff fa50 	bl	4eec <gpio__construct_as_output>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:59
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:60
   XDCS = gpio__construct_as_output(0, 26);
     5a4c:	211a      	movs	r1, #26
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:58
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:59
   RST = gpio__construct_as_output(0, 8);
     5a4e:	7020      	strb	r0, [r4, #0]
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:59
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:60
   XDCS = gpio__construct_as_output(0, 26);
     5a50:	2000      	movs	r0, #0
     5a52:	f7ff fa4b 	bl	4eec <gpio__construct_as_output>
     5a56:	7028      	strb	r0, [r5, #0]
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:61
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:62
   gpio__reset(RST);
     5a58:	7820      	ldrb	r0, [r4, #0]
     5a5a:	f7ff fa7b 	bl	4f54 <gpio__reset>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:62
-  gpio__set(CS);
-    5a5e:	7830      	ldrb	r0, [r6, #0]
-    5a60:	f7ff fa6a 	bl	4f38 <gpio__set>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:63
-  gpio__set(XDCS);
-    5a64:	7828      	ldrb	r0, [r5, #0]
-    5a66:	f7ff fa67 	bl	4f38 <gpio__set>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:65
-  ssp2__initialize(12288); // data sheet says 12MHZ
-    5a6a:	f44f 5040 	mov.w	r0, #12288	; 0x3000
-    5a6e:	f7ff fd71 	bl	5554 <ssp2__initialize>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:67
   gpio__set(RST);
-    5a72:	7820      	ldrb	r0, [r4, #0]
-    5a74:	f7ff fa60 	bl	4f38 <gpio__set>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:69
+    5a5e:	7820      	ldrb	r0, [r4, #0]
+    5a60:	f7ff fa6a 	bl	4f38 <gpio__set>
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:65
+  gpio__set(CS);
+    5a64:	7830      	ldrb	r0, [r6, #0]
+    5a66:	f7ff fa67 	bl	4f38 <gpio__set>
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:66
+  gpio__set(XDCS);
+    5a6a:	7828      	ldrb	r0, [r5, #0]
+    5a6c:	f7ff fa64 	bl	4f38 <gpio__set>
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:68
+  ssp2__initialize(1000);
+    5a70:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
+    5a74:	f7ff fd6e 	bl	5554 <ssp2__initialize>
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:70
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
     5a78:	2400      	movs	r4, #0
     5a7a:	2303      	movs	r3, #3
@@ -20188,7 +20188,7 @@ int main(void) {
     5a86:	4910      	ldr	r1, [pc, #64]	; (5ac8 <main+0xc4>)
     5a88:	4810      	ldr	r0, [pc, #64]	; (5acc <main+0xc8>)
     5a8a:	f7fe fb1b 	bl	40c4 <xTaskCreate>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:70
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:71
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
     5a8e:	2301      	movs	r3, #1
     5a90:	f44f 6280 	mov.w	r2, #1024	; 0x400
@@ -20198,13 +20198,13 @@ int main(void) {
     5a9a:	4623      	mov	r3, r4
     5a9c:	480d      	ldr	r0, [pc, #52]	; (5ad4 <main+0xd0>)
     5a9e:	f7fe fb11 	bl	40c4 <xTaskCreate>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:72
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:73
   read_test();
     5aa2:	f7ff ff8d 	bl	59c0 <read_test>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:73
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:74
   vTaskStartScheduler();
     5aa6:	f7fe fbb3 	bl	4210 <vTaskStartScheduler>
-/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:75
+/Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:76
 }
     5aaa:	4620      	mov	r0, r4
     5aac:	b002      	add	sp, #8
@@ -20612,9 +20612,9 @@ _fputs_r():
     5ec2:	460d      	mov	r5, r1
     5ec4:	e7c9      	b.n	5e5a <_fputs_r+0x52>
     5ec6:	bf00      	nop
-    5ec8:	0000d670 	.word	0x0000d670
-    5ecc:	0000d690 	.word	0x0000d690
-    5ed0:	0000d650 	.word	0x0000d650
+    5ec8:	0000d678 	.word	0x0000d678
+    5ecc:	0000d698 	.word	0x0000d698
+    5ed0:	0000d658 	.word	0x0000d658
 
 00005ed4 <fputs>:
 fputs():
@@ -21163,12 +21163,12 @@ _vfprintf_r():
     635c:	f000 fb42 	bl	69e4 <_printf_i>
     6360:	e7e3      	b.n	632a <_vfiprintf_r+0x1f6>
     6362:	bf00      	nop
-    6364:	0000d670 	.word	0x0000d670
-    6368:	0000d690 	.word	0x0000d690
-    636c:	0000d650 	.word	0x0000d650
-    6370:	0000d5a4 	.word	0x0000d5a4
-    6374:	0000d5aa 	.word	0x0000d5aa
-    6378:	0000d5ae 	.word	0x0000d5ae
+    6364:	0000d678 	.word	0x0000d678
+    6368:	0000d698 	.word	0x0000d698
+    636c:	0000d658 	.word	0x0000d658
+    6370:	0000d5ac 	.word	0x0000d5ac
+    6374:	0000d5b2 	.word	0x0000d5b2
+    6378:	0000d5b6 	.word	0x0000d5b6
     637c:	000064a5 	.word	0x000064a5
     6380:	0000610f 	.word	0x0000610f
 
@@ -21602,10 +21602,10 @@ _printf_float():
     6798:	9304      	str	r3, [sp, #16]
     679a:	e015      	b.n	67c8 <_printf_float+0x324>
     679c:	7fefffff 	.word	0x7fefffff
-    67a0:	0000d5b5 	.word	0x0000d5b5
-    67a4:	0000d5b9 	.word	0x0000d5b9
-    67a8:	0000d5bd 	.word	0x0000d5bd
-    67ac:	0000d5c1 	.word	0x0000d5c1
+    67a0:	0000d5bd 	.word	0x0000d5bd
+    67a4:	0000d5c1 	.word	0x0000d5c1
+    67a8:	0000d5c5 	.word	0x0000d5c5
+    67ac:	0000d5c9 	.word	0x0000d5c9
     67b0:	0000ce93 	.word	0x0000ce93
     67b4:	2301      	movs	r3, #1
     67b6:	9a04      	ldr	r2, [sp, #16]
@@ -22064,8 +22064,8 @@ _printf_i():
     6bfc:	2500      	movs	r5, #0
     6bfe:	f104 0919 	add.w	r9, r4, #25
     6c02:	e7f5      	b.n	6bf0 <_printf_i+0x20c>
-    6c04:	0000d5c5 	.word	0x0000d5c5
-    6c08:	0000d5d6 	.word	0x0000d5d6
+    6c04:	0000d5cd 	.word	0x0000d5cd
+    6c08:	0000d5de 	.word	0x0000d5de
 
 00006c0c <_scanf_float>:
 _scanf_float():
@@ -22445,7 +22445,7 @@ _scanf_float():
     6fbe:	2500      	movs	r5, #0
     6fc0:	e66b      	b.n	6c9a <_scanf_float+0x8e>
     6fc2:	bf00      	nop
-    6fc4:	0000d5e7 	.word	0x0000d5e7
+    6fc4:	0000d5ef 	.word	0x0000d5ef
     6fc8:	0000c581 	.word	0x0000c581
 
 00006fcc <iprintf>:
@@ -22587,9 +22587,9 @@ _puts_r():
     70ee:	6022      	str	r2, [r4, #0]
     70f0:	701d      	strb	r5, [r3, #0]
     70f2:	e7db      	b.n	70ac <_puts_r+0x88>
-    70f4:	0000d670 	.word	0x0000d670
-    70f8:	0000d690 	.word	0x0000d690
-    70fc:	0000d650 	.word	0x0000d650
+    70f4:	0000d678 	.word	0x0000d678
+    70f8:	0000d698 	.word	0x0000d698
+    70fc:	0000d658 	.word	0x0000d658
 
 00007100 <puts>:
 puts():
@@ -22774,9 +22774,9 @@ setvbuf():
     72a0:	e7ba      	b.n	7218 <setvbuf+0xe8>
     72a2:	bf00      	nop
     72a4:	100001b0 	.word	0x100001b0
-    72a8:	0000d670 	.word	0x0000d670
-    72ac:	0000d690 	.word	0x0000d690
-    72b0:	0000d650 	.word	0x0000d650
+    72a8:	0000d678 	.word	0x0000d678
+    72ac:	0000d698 	.word	0x0000d698
+    72b0:	0000d658 	.word	0x0000d658
 
 000072b4 <nanf>:
 nanf():
@@ -22838,7 +22838,7 @@ strcasecmp():
     732e:	4618      	mov	r0, r3
     7330:	bd70      	pop	{r4, r5, r6, pc}
     7332:	bf00      	nop
-    7334:	0000d49f 	.word	0x0000d49f
+    7334:	0000d4a5 	.word	0x0000d4a5
 
 00007338 <strchr>:
 strchr():
@@ -22897,7 +22897,7 @@ strncasecmp():
     739e:	4623      	mov	r3, r4
     73a0:	e7fb      	b.n	739a <strncasecmp+0x36>
     73a2:	bf00      	nop
-    73a4:	0000d49f 	.word	0x0000d49f
+    73a4:	0000d4a5 	.word	0x0000d4a5
 
 000073a8 <strncmp>:
 strncmp():
@@ -23262,8 +23262,8 @@ _strtod_l():
     76ce:	2701      	movs	r7, #1
     76d0:	e7f9      	b.n	76c6 <_strtod_l+0x26e>
     76d2:	bf00      	nop
-    76d4:	0000d6b0 	.word	0x0000d6b0
-    76d8:	0000d5ec 	.word	0x0000d5ec
+    76d4:	0000d6b8 	.word	0x0000d6b8
+    76d8:	0000d5f4 	.word	0x0000d5f4
     76dc:	7ff00000 	.word	0x7ff00000
     76e0:	9b1b      	ldr	r3, [sp, #108]	; 0x6c
     76e2:	1c59      	adds	r1, r3, #1
@@ -23547,13 +23547,13 @@ _strtod_l():
     79aa:	6013      	str	r3, [r2, #0]
     79ac:	e78f      	b.n	78ce <_strtod_l+0x476>
     79ae:	bf00      	nop
-    79b0:	0000d5ba 	.word	0x0000d5ba
-    79b4:	0000d643 	.word	0x0000d643
-    79b8:	0000d5c2 	.word	0x0000d5c2
-    79bc:	0000d600 	.word	0x0000d600
+    79b0:	0000d5c2 	.word	0x0000d5c2
+    79b4:	0000d64b 	.word	0x0000d64b
+    79b8:	0000d5ca 	.word	0x0000d5ca
+    79bc:	0000d608 	.word	0x0000d608
     79c0:	0000c581 	.word	0x0000c581
-    79c4:	0000d6f0 	.word	0x0000d6f0
-    79c8:	0000d6c8 	.word	0x0000d6c8
+    79c4:	0000d6f8 	.word	0x0000d6f8
+    79c8:	0000d6d0 	.word	0x0000d6d0
     79cc:	7ff00000 	.word	0x7ff00000
     79d0:	7ca00000 	.word	0x7ca00000
     79d4:	7fefffff 	.word	0x7fefffff
@@ -23836,7 +23836,7 @@ _strtod_l():
     7c94:	f47f af76 	bne.w	7b84 <_strtod_l+0x72c>
     7c98:	e612      	b.n	78c0 <_strtod_l+0x468>
     7c9a:	bf00      	nop
-    7c9c:	0000d618 	.word	0x0000d618
+    7c9c:	0000d620 	.word	0x0000d620
     7ca0:	fffffc02 	.word	0xfffffc02
     7ca4:	7ff00000 	.word	0x7ff00000
     7ca8:	39500000 	.word	0x39500000
@@ -24254,7 +24254,7 @@ _strtol_l.isra.0():
     80e2:	230a      	movs	r3, #10
     80e4:	e7aa      	b.n	803c <_strtol_l.isra.0+0x40>
     80e6:	bf00      	nop
-    80e8:	0000d49f 	.word	0x0000d49f
+    80e8:	0000d4a5 	.word	0x0000d4a5
 
 000080ec <_strtol_r>:
 _strtol_r():
@@ -24441,9 +24441,9 @@ __swbuf_r():
     8264:	f04f 37ff 	mov.w	r7, #4294967295	; 0xffffffff
     8268:	e7ea      	b.n	8240 <__swbuf_r+0x6c>
     826a:	bf00      	nop
-    826c:	0000d670 	.word	0x0000d670
-    8270:	0000d690 	.word	0x0000d690
-    8274:	0000d650 	.word	0x0000d650
+    826c:	0000d678 	.word	0x0000d678
+    8270:	0000d698 	.word	0x0000d698
+    8274:	0000d658 	.word	0x0000d658
 
 00008278 <__swsetup_r>:
 __swsetup_r():
@@ -24536,9 +24536,9 @@ __swsetup_r():
     8340:	e7f7      	b.n	8332 <__swsetup_r+0xba>
     8342:	bf00      	nop
     8344:	100001b0 	.word	0x100001b0
-    8348:	0000d670 	.word	0x0000d670
-    834c:	0000d690 	.word	0x0000d690
-    8350:	0000d650 	.word	0x0000d650
+    8348:	0000d678 	.word	0x0000d678
+    834c:	0000d698 	.word	0x0000d698
+    8350:	0000d658 	.word	0x0000d658
 
 00008354 <quorem>:
 quorem():
@@ -24958,12 +24958,12 @@ _dtoa_r():
     8788:	509f79fb 	.word	0x509f79fb
     878c:	3fd34413 	.word	0x3fd34413
     8790:	7ff00000 	.word	0x7ff00000
-    8794:	0000d649 	.word	0x0000d649
-    8798:	0000d640 	.word	0x0000d640
+    8794:	0000d651 	.word	0x0000d651
+    8798:	0000d648 	.word	0x0000d648
     879c:	0000ce94 	.word	0x0000ce94
     87a0:	3ff80000 	.word	0x3ff80000
-    87a4:	0000d6f0 	.word	0x0000d6f0
-    87a8:	0000d6c8 	.word	0x0000d6c8
+    87a4:	0000d6f8 	.word	0x0000d6f8
+    87a8:	0000d6d0 	.word	0x0000d6d0
     87ac:	3101      	adds	r1, #1
     87ae:	6069      	str	r1, [r5, #4]
     87b0:	0052      	lsls	r2, r2, #1
@@ -25214,8 +25214,8 @@ _dtoa_r():
     8a68:	e9cd 0100 	strd	r0, r1, [sp]
     8a6c:	e7bc      	b.n	89e8 <_dtoa_r+0x580>
     8a6e:	bf00      	nop
-    8a70:	0000d6f0 	.word	0x0000d6f0
-    8a74:	0000d6c8 	.word	0x0000d6c8
+    8a70:	0000d6f8 	.word	0x0000d6f8
+    8a74:	0000d6d0 	.word	0x0000d6d0
     8a78:	3ff00000 	.word	0x3ff00000
     8a7c:	40240000 	.word	0x40240000
     8a80:	401c0000 	.word	0x401c0000
@@ -25783,7 +25783,7 @@ _dtoa_r():
     8fd0:	e7ea      	b.n	8fa8 <_dtoa_r+0xb40>
     8fd2:	bf00      	nop
     8fd4:	0000ce93 	.word	0x0000ce93
-    8fd8:	0000d640 	.word	0x0000d640
+    8fd8:	0000d648 	.word	0x0000d648
 
 00008fdc <__sflush_r>:
 __sflush_r():
@@ -25961,9 +25961,9 @@ _fflush_r():
     914e:	bf08      	it	eq
     9150:	68ec      	ldreq	r4, [r5, #12]
     9152:	e7da      	b.n	910a <_fflush_r+0x22>
-    9154:	0000d670 	.word	0x0000d670
-    9158:	0000d690 	.word	0x0000d690
-    915c:	0000d650 	.word	0x0000d650
+    9154:	0000d678 	.word	0x0000d678
+    9158:	0000d698 	.word	0x0000d698
+    915c:	0000d658 	.word	0x0000d658
 
 00009160 <fflush>:
 fflush():
@@ -25977,7 +25977,7 @@ fflush():
     9170:	6818      	ldr	r0, [r3, #0]
     9172:	f7ff bfb9 	b.w	90e8 <_fflush_r>
     9176:	bf00      	nop
-    9178:	0000d5a0 	.word	0x0000d5a0
+    9178:	0000d5a8 	.word	0x0000d5a8
     917c:	000090e9 	.word	0x000090e9
     9180:	100001b0 	.word	0x100001b0
 
@@ -26112,7 +26112,7 @@ __sinit():
     9296:	61a3      	str	r3, [r4, #24]
     9298:	e7d2      	b.n	9240 <__sinit+0xc>
     929a:	bf00      	nop
-    929c:	0000d5a0 	.word	0x0000d5a0
+    929c:	0000d5a8 	.word	0x0000d5a8
     92a0:	000091cd 	.word	0x000091cd
 
 000092a4 <__sfp>:
@@ -26168,7 +26168,7 @@ __sfp():
     9322:	603b      	str	r3, [r7, #0]
     9324:	e7ee      	b.n	9304 <__sfp+0x60>
     9326:	bf00      	nop
-    9328:	0000d5a0 	.word	0x0000d5a0
+    9328:	0000d5a8 	.word	0x0000d5a8
     932c:	ffff0001 	.word	0xffff0001
 
 00009330 <_fwalk>:
@@ -26601,7 +26601,7 @@ __gethex():
     9726:	d1dd      	bne.n	96e4 <__gethex+0x2a0>
     9728:	e7ee      	b.n	9708 <__gethex+0x2c4>
     972a:	bf00      	nop
-    972c:	0000d6b0 	.word	0x0000d6b0
+    972c:	0000d6b8 	.word	0x0000d6b8
     9730:	1e6f      	subs	r7, r5, #1
     9732:	f1ba 0f00 	cmp.w	sl, #0
     9736:	d131      	bne.n	979c <__gethex+0x358>
@@ -26949,9 +26949,9 @@ _getc_r():
     9a66:	781d      	ldrb	r5, [r3, #0]
     9a68:	e7e5      	b.n	9a36 <_getc_r+0x3e>
     9a6a:	bf00      	nop
-    9a6c:	0000d670 	.word	0x0000d670
-    9a70:	0000d690 	.word	0x0000d690
-    9a74:	0000d650 	.word	0x0000d650
+    9a6c:	0000d678 	.word	0x0000d678
+    9a70:	0000d698 	.word	0x0000d698
+    9a74:	0000d658 	.word	0x0000d658
 
 00009a78 <_localeconv_r>:
 _localeconv_r():
@@ -27567,7 +27567,7 @@ __pow5mult():
     a014:	4638      	mov	r0, r7
     a016:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     a01a:	bf00      	nop
-    a01c:	0000d7b8 	.word	0x0000d7b8
+    a01c:	0000d7c0 	.word	0x0000d7c0
 
 0000a020 <__lshift>:
 __lshift():
@@ -28294,9 +28294,9 @@ _svfiprintf_r():
     a70c:	f7fc f96a 	bl	69e4 <_printf_i>
     a710:	e7ea      	b.n	a6e8 <_svfiprintf_r+0x1b0>
     a712:	bf00      	nop
-    a714:	0000d5a4 	.word	0x0000d5a4
-    a718:	0000d5aa 	.word	0x0000d5aa
-    a71c:	0000d5ae 	.word	0x0000d5ae
+    a714:	0000d5ac 	.word	0x0000d5ac
+    a718:	0000d5b2 	.word	0x0000d5b2
+    a71c:	0000d5b6 	.word	0x0000d5b6
     a720:	000064a5 	.word	0x000064a5
     a724:	0000a481 	.word	0x0000a481
 
@@ -28667,8 +28667,8 @@ __ssvfiscanf_r():
     aa56:	bf00      	nop
     aa58:	0000a729 	.word	0x0000a729
     aa5c:	0000a7a3 	.word	0x0000a7a3
-    aa60:	0000d49f 	.word	0x0000d49f
-    aa64:	0000d5aa 	.word	0x0000d5aa
+    aa60:	0000d4a5 	.word	0x0000d4a5
+    aa64:	0000d5b2 	.word	0x0000d5b2
     aa68:	00006c0d 	.word	0x00006c0d
 
 0000aa6c <_scanf_chars>:
@@ -28751,7 +28751,7 @@ _scanf_chars():
     ab12:	6127      	str	r7, [r4, #16]
     ab14:	2000      	movs	r0, #0
     ab16:	e7cb      	b.n	aab0 <_scanf_chars+0x44>
-    ab18:	0000d49f 	.word	0x0000d49f
+    ab18:	0000d4a5 	.word	0x0000d4a5
 
 0000ab1c <_scanf_i>:
 _scanf_i():
@@ -28946,10 +28946,10 @@ _scanf_i():
     acee:	2001      	movs	r0, #1
     acf0:	e7f2      	b.n	acd8 <_scanf_i+0x1bc>
     acf2:	bf00      	nop
-    acf4:	0000d7c4 	.word	0x0000d7c4
+    acf4:	0000d7cc 	.word	0x0000d7cc
     acf8:	0000afdd 	.word	0x0000afdd
     acfc:	000080ed 	.word	0x000080ed
-    ad00:	0000d7e0 	.word	0x0000d7e0
+    ad00:	0000d7e8 	.word	0x0000d7e8
 
 0000ad04 <_putc_r>:
 _putc_r():
@@ -29015,9 +29015,9 @@ _putc_r():
     ad80:	f7fd fa28 	bl	81d4 <__swbuf_r>
     ad84:	4605      	mov	r5, r0
     ad86:	e7e3      	b.n	ad50 <_putc_r+0x4c>
-    ad88:	0000d670 	.word	0x0000d670
-    ad8c:	0000d690 	.word	0x0000d690
-    ad90:	0000d650 	.word	0x0000d650
+    ad88:	0000d678 	.word	0x0000d678
+    ad8c:	0000d698 	.word	0x0000d698
+    ad90:	0000d658 	.word	0x0000d658
 
 0000ad94 <__srget_r>:
 __srget_r():
@@ -29056,9 +29056,9 @@ __srget_r():
     add8:	e7e8      	b.n	adac <__srget_r+0x18>
     adda:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
     adde:	e7f1      	b.n	adc4 <__srget_r+0x30>
-    ade0:	0000d670 	.word	0x0000d670
-    ade4:	0000d690 	.word	0x0000d690
-    ade8:	0000d650 	.word	0x0000d650
+    ade0:	0000d678 	.word	0x0000d678
+    ade4:	0000d698 	.word	0x0000d698
+    ade8:	0000d658 	.word	0x0000d658
     adec:	ffffffff 	.word	0xffffffff
 
 0000adf0 <nan>:
@@ -29286,7 +29286,7 @@ _strtoul_l.isra.0():
     afd2:	230a      	movs	r3, #10
     afd4:	e7ac      	b.n	af30 <_strtoul_l.isra.0+0x40>
     afd6:	bf00      	nop
-    afd8:	0000d49f 	.word	0x0000d49f
+    afd8:	0000d4a5 	.word	0x0000d4a5
 
 0000afdc <_strtoul_r>:
 _strtoul_r():
@@ -29598,10 +29598,10 @@ __srefill_r():
     b262:	2000      	movs	r0, #0
     b264:	e7fc      	b.n	b260 <__srefill_r+0xfc>
     b266:	bf00      	nop
-    b268:	0000d670 	.word	0x0000d670
-    b26c:	0000d690 	.word	0x0000d690
-    b270:	0000d650 	.word	0x0000d650
-    b274:	0000d5a0 	.word	0x0000d5a0
+    b268:	0000d678 	.word	0x0000d678
+    b26c:	0000d698 	.word	0x0000d698
+    b270:	0000d658 	.word	0x0000d658
+    b274:	0000d5a8 	.word	0x0000d5a8
     b278:	0000b151 	.word	0x0000b151
 
 0000b27c <__aeabi_drsub>:
@@ -30940,78 +30940,78 @@ __fixunsdfdi():
     d45c:	705f3370 6579616c 65520072 76696563     p3_player.Receiv
     d46c:	73206465 20676e6f 70206f74 3a79616c     ed song to play:
     d47c:	0a732520 52524500 203a524f 656c6946      %s..ERROR: File
-    d48c:	746f6e20 756f6620 2500646e 78252078      not found.%x %x
-    d49c:	                                         ..
+    d48c:	746f6e20 756f6620 5200646e 3a444145      not found.READ:
+    d49c:	20782520 000a7825                        %x %x..
 
-0000d49e <_ctype_>:
-    d49e:	20202000 20202020 28282020 20282828     .         ((((( 
-    d4ae:	20202020 20202020 20202020 20202020                     
-    d4be:	10108820 10101010 10101010 10101010      ...............
-    d4ce:	04040410 04040404 10040404 10101010     ................
-    d4de:	41411010 41414141 01010101 01010101     ..AAAAAA........
-    d4ee:	01010101 01010101 01010101 10101010     ................
-    d4fe:	42421010 42424242 02020202 02020202     ..BBBBBB........
-    d50e:	02020202 02020202 02020202 10101010     ................
-    d51e:	00000020 00000000 00000000 00000000      ...............
+0000d4a4 <_ctype_>:
+    d4a4:	20202000 20202020 28282020 20282828     .         ((((( 
+    d4b4:	20202020 20202020 20202020 20202020                     
+    d4c4:	10108820 10101010 10101010 10101010      ...............
+    d4d4:	04040410 04040404 10040404 10101010     ................
+    d4e4:	41411010 41414141 01010101 01010101     ..AAAAAA........
+    d4f4:	01010101 01010101 01010101 10101010     ................
+    d504:	42421010 42424242 02020202 02020202     ..BBBBBB........
+    d514:	02020202 02020202 02020202 10101010     ................
+    d524:	00000020 00000000 00000000 00000000      ...............
 	...
-    d59e:	                                         ..
+    d5a4:	ffffff00                                ....
 
-0000d5a0 <_global_impure_ptr>:
-    d5a0:	100001b4 2b302d23 6c680020 6665004c     ....#-0+ .hlL.ef
-    d5b0:	47464567 464e4900 666e6900 4e414e00     gEFG.INF.inf.NAN
-    d5c0:	6e616e00 32313000 36353433 41393837     .nan.0123456789A
-    d5d0:	45444342 31300046 35343332 39383736     BCDEF.0123456789
-    d5e0:	64636261 65006665 00646c25              abcdef.e%ld.
+0000d5a8 <_global_impure_ptr>:
+    d5a8:	100001b4 2b302d23 6c680020 6665004c     ....#-0+ .hlL.ef
+    d5b8:	47464567 464e4900 666e6900 4e414e00     gEFG.INF.inf.NAN
+    d5c8:	6e616e00 32313000 36353433 41393837     .nan.0123456789A
+    d5d8:	45444342 31300046 35343332 39383736     BCDEF.0123456789
+    d5e8:	64636261 65006665 00646c25              abcdef.e%ld.
 
-0000d5ec <fpi.7522>:
-    d5ec:	00000035 fffffbce 000003cb 00000001     5...............
-    d5fc:	00000000                                ....
+0000d5f4 <fpi.7522>:
+    d5f4:	00000035 fffffbce 000003cb 00000001     5...............
+    d604:	00000000                                ....
 
-0000d600 <fpinan.7558>:
-    d600:	00000034 fffffbce 000003cb 00000001     4...............
-    d610:	00000000 ffffffff                       ........
+0000d608 <fpinan.7558>:
+    d608:	00000034 fffffbce 000003cb 00000001     4...............
+    d618:	00000000 ffffffff                       ........
 
-0000d618 <tinytens>:
-    d618:	97d889bc 3c9cd2b2 d5a8a733 3949f623     .......<3...#.I9
-    d628:	44f4a73d 32a50ffd cf8c979d 255bba08     =..D...2......[%
-    d638:	64ac6f43 11680628 69666e49 7974696e     Co.d(.h.Infinity
-    d648:	4e614e00 ffffff00                       .NaN....
+0000d620 <tinytens>:
+    d620:	97d889bc 3c9cd2b2 d5a8a733 3949f623     .......<3...#.I9
+    d630:	44f4a73d 32a50ffd cf8c979d 255bba08     =..D...2......[%
+    d640:	64ac6f43 11680628 69666e49 7974696e     Co.d(.h.Infinity
+    d650:	4e614e00 ffffff00                       .NaN....
 
-0000d650 <__sf_fake_stderr>:
-	...
-
-0000d670 <__sf_fake_stdin>:
+0000d658 <__sf_fake_stderr>:
 	...
 
-0000d690 <__sf_fake_stdout>:
+0000d678 <__sf_fake_stdin>:
 	...
 
-0000d6b0 <_C_numeric_locale>:
-    d6b0:	0000c7b3 0000c581 10000214 4f500043     ............C.PO
-    d6c0:	00584953 ffffffff                       SIX.....
+0000d698 <__sf_fake_stdout>:
+	...
 
-0000d6c8 <__mprec_bigtens>:
-    d6c8:	37e08000 4341c379 b5056e17 4693b8b5     ...7y.AC.n.....F
-    d6d8:	e93ff9f5 4d384f03 f9301d32 5a827748     ..?..O8M2.0.Hw.Z
-    d6e8:	7f73bf3c 75154fdd                       <.s..O.u
+0000d6b8 <_C_numeric_locale>:
+    d6b8:	0000c7b3 0000c581 10000214 4f500043     ............C.PO
+    d6c8:	00584953 ffffffff                       SIX.....
 
-0000d6f0 <__mprec_tens>:
-    d6f0:	00000000 3ff00000 00000000 40240000     .......?......$@
-    d700:	00000000 40590000 00000000 408f4000     ......Y@.....@.@
-    d710:	00000000 40c38800 00000000 40f86a00     .......@.....j.@
-    d720:	00000000 412e8480 00000000 416312d0     .......A......cA
-    d730:	00000000 4197d784 00000000 41cdcd65     .......A....e..A
-    d740:	20000000 4202a05f e8000000 42374876     ... _..B....vH7B
-    d750:	a2000000 426d1a94 e5400000 42a2309c     ......mB..@..0.B
-    d760:	1e900000 42d6bcc4 26340000 430c6bf5     .......B..4&.k.C
-    d770:	37e08000 4341c379 85d8a000 43763457     ...7y.AC....W4vC
-    d780:	674ec800 43abc16d 60913d00 43e158e4     ..Ngm..C.=.`.X.C
-    d790:	78b58c40 4415af1d d6e2ef50 444b1ae4     @..x...DP.....KD
-    d7a0:	064dd592 4480f0cf c7e14af6 44b52d02     ..M....D.J...-.D
-    d7b0:	79d99db4 44ea7843                       ...yCx.D
+0000d6d0 <__mprec_bigtens>:
+    d6d0:	37e08000 4341c379 b5056e17 4693b8b5     ...7y.AC.n.....F
+    d6e0:	e93ff9f5 4d384f03 f9301d32 5a827748     ..?..O8M2.0.Hw.Z
+    d6f0:	7f73bf3c 75154fdd                       <.s..O.u
 
-0000d7b8 <p05.7444>:
-    d7b8:	00000005 00000019 0000007d 0000d7e2     ........}.......
-    d7c8:	0000d7e5 0000d7e8 61462d41 3938662d     ........A-Fa-f89
-    d7d8:	33323130 37363534 2d2b005d 00303000     01234567].+-.00.
-    d7e8:	ff005878                                xX..
+0000d6f8 <__mprec_tens>:
+    d6f8:	00000000 3ff00000 00000000 40240000     .......?......$@
+    d708:	00000000 40590000 00000000 408f4000     ......Y@.....@.@
+    d718:	00000000 40c38800 00000000 40f86a00     .......@.....j.@
+    d728:	00000000 412e8480 00000000 416312d0     .......A......cA
+    d738:	00000000 4197d784 00000000 41cdcd65     .......A....e..A
+    d748:	20000000 4202a05f e8000000 42374876     ... _..B....vH7B
+    d758:	a2000000 426d1a94 e5400000 42a2309c     ......mB..@..0.B
+    d768:	1e900000 42d6bcc4 26340000 430c6bf5     .......B..4&.k.C
+    d778:	37e08000 4341c379 85d8a000 43763457     ...7y.AC....W4vC
+    d788:	674ec800 43abc16d 60913d00 43e158e4     ..Ngm..C.=.`.X.C
+    d798:	78b58c40 4415af1d d6e2ef50 444b1ae4     @..x...DP.....KD
+    d7a8:	064dd592 4480f0cf c7e14af6 44b52d02     ..M....D.J...-.D
+    d7b8:	79d99db4 44ea7843                       ...yCx.D
+
+0000d7c0 <p05.7444>:
+    d7c0:	00000005 00000019 0000007d 0000d7ea     ........}.......
+    d7d0:	0000d7ed 0000d7f0 61462d41 3938662d     ........A-Fa-f89
+    d7e0:	33323130 37363534 2d2b005d 00303000     01234567].+-.00.
+    d7f0:	ff005878                                xX..
