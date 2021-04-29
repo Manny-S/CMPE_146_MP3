@@ -30,10 +30,13 @@ QueueHandle_t Q_songdata;
 // static const uint32_t play_pause = (1 << 19);
 // TaskHandle_t MP3PlayPause = NULL;
 
+const uint32_t spi_clock_khz = 1000;
+
 const uint8_t READ = 0x03;
 const uint8_t WRITE = 0x02;
 const uint8_t SCI_MODE = 0x00;
 const uint8_t SCI_STATUS = 0x1;
+const uint8_t SCI_CLOCKF = 0x3;
 const uint8_t SCI_VOL = 0xB;
 const uint8_t DUMB = 0xFF;
 
@@ -44,15 +47,15 @@ gpio_s XDCS;
 
 void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
-void read_test(void);
-void write_test(void);
+void read_reg(void);
+void clockf_init(void);
 
 int main(void) {
   // Adds the ability for CLI commands
   sj2_cli__init();
 
   Q_songname = xQueueCreate(1, sizeof(songname_t));
-  Q_songdata = xQueueCreate(2, sizeof(songbyte_t));
+  Q_songdata = xQueueCreate(1, sizeof(songbyte_t));
 
   CS = gpio__construct_as_output(4, 28);
   DREQ = gpio__construct_as_input(0, 6);
@@ -65,34 +68,32 @@ int main(void) {
   gpio__set(CS);
   gpio__set(XDCS);
 
-  ssp2__initialize(1000);
+  ssp2__initialize(spi_clock_khz);
 
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
-  // write_test();
-  read_test();
+  clockf_init();
+  read_reg();
   vTaskStartScheduler();
   return 0;
 }
-void write_test(void) {
-  uint8_t byte1 = 0x48;
+void clockf_init(void) {
+  uint8_t byte1 = 0x88;
   uint8_t byte2 = 0x00;
   gpio__reset(CS);
   ssp2__exchange_byte(WRITE);
-  ssp2__exchange_byte(SCI_MODE);
+  ssp2__exchange_byte(SCI_CLOCKF);
   ssp2__exchange_byte(byte1);
   ssp2__exchange_byte(byte2);
   gpio__set(CS);
-
-  printf("WRITE: %x %x\n", byte1, byte2);
 }
 
-void read_test(void) {
+void read_reg(void) {
   uint8_t byte1 = 0xFF;
   uint8_t byte2 = 0xFF;
   gpio__reset(CS);
   ssp2__exchange_byte(READ);
-  ssp2__exchange_byte(SCI_MODE);
+  ssp2__exchange_byte(SCI_CLOCKF);
   byte1 = ssp2__exchange_byte(DUMB);
   byte2 = ssp2__exchange_byte(DUMB);
   gpio__set(CS);
@@ -131,19 +132,15 @@ void mp3_player_task(void *p) {
 
   while (1) {
     if (xQueueReceive(Q_songdata, &chunk, portMAX_DELAY)) {
-      for (int i = 0; i < 512;) {
+      gpio__reset(XDCS);
+      for (int i = 0; i < 512; i++) {
         while (!gpio__get(DREQ)) {
           vTaskDelay(1);
         }
-        gpio__reset(XDCS);
-        for (int j = 0; j < 32;) {
-          ssp2__exchange_byte(chunk[i + j]);
-          printf("%x", chunk[i + j]);
-          j++;
-        }
-        gpio__set(XDCS);
-        i = i + 32;
+
+        ssp2__exchange_byte(chunk[i]);
       }
+      gpio__set(XDCS);
     }
   }
 }
