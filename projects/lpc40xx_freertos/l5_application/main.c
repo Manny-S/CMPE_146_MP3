@@ -27,8 +27,7 @@ typedef char songbyte_t[512];
 QueueHandle_t Q_songname;
 QueueHandle_t Q_songdata;
 
-// static const uint32_t play_pause = (1 << 19);
-// TaskHandle_t MP3PlayPause = NULL;
+TaskHandle_t MP3PlayPause = NULL;
 
 const uint32_t spi_clock_khz = 1000;
 
@@ -44,11 +43,13 @@ gpio_s CS;
 gpio_s DREQ; // Data Request input
 gpio_s RST;
 gpio_s XDCS;
+gpio_s play_pause;
 
 void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
 void read_reg(void);
 void clockf_init(void);
+void play_pause_button(void *p);
 
 int main(void) {
   // Adds the ability for CLI commands
@@ -61,6 +62,7 @@ int main(void) {
   DREQ = gpio__construct_as_input(0, 6);
   RST = gpio__construct_as_output(0, 8);
   XDCS = gpio__construct_as_output(0, 26);
+  play_pause = gpio__construct_as_input(1, 19);
 
   gpio__reset(RST);
   gpio__set(RST);
@@ -72,8 +74,10 @@ int main(void) {
 
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
+  xTaskCreate(play_pause_button, "play_pause", 1024, NULL, PRIORITY_LOW, NULL);
   clockf_init();
   read_reg();
+  MP3PlayPause = xTaskGetHandle("mp3_player");
   vTaskStartScheduler();
   return 0;
 }
@@ -145,29 +149,29 @@ void mp3_player_task(void *p) {
   }
 }
 
-// void play_pause_button(void *p) {
-//   bool play_status = false;
-//   uint8_t alternative_status = 1;
-//   while (1) {
-//     vTaskDelay(100);
-//     if (gpio1__get_level(play_pause)) {
-//       while (gpio1__get_level(play_pause)) {
-//         vTaskDelay(1);
-//       }
-//       play_status = true;
-//     } else {
-//       play_status = false;
-//     }
+void play_pause_button(void *p) {
+  bool play_status = false;
+  uint8_t alternative_status = 1;
+  while (1) {
+    vTaskDelay(100);
+    if (gpio__get(play_pause)) {
+      while (gpio__get(play_pause)) {
+        vTaskDelay(1);
+      }
+      play_status = true;
+    } else {
+      play_status = false;
+    }
 
-//     if (play_status) {
-//       if (alternative_status) {
-//         vTaskResume(MP3PlayPause);
-//         alternative_status--;
-//       } else {
-//         vTaskSuspend(MP3PlayPause);
-//         alternative_status--;
-//       }
-//     }
-//     vTaskDelay(1);
-//   }
-// }
+    if (play_status) {
+      if (alternative_status) {
+        vTaskResume(MP3PlayPause);
+        alternative_status--;
+      } else {
+        vTaskSuspend(MP3PlayPause);
+        alternative_status++;
+      }
+    }
+    vTaskDelay(1);
+  }
+}
