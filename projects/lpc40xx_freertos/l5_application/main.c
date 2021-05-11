@@ -19,9 +19,9 @@
 
 #include "event_groups.h"
 #include "ff.h"
+#include "song_list.h"
 #include "ssp2.h"
 #include <string.h>
-#include "song_list.h"
 
 typedef char songname_t[32];
 typedef char songbyte_t[512];
@@ -39,7 +39,7 @@ const uint8_t SCI_STATUS = 0x1;
 const uint8_t SCI_CLOCKF = 0x3;
 const uint8_t SCI_VOL = 0xB;
 const uint8_t DUMB = 0xFF;
-const uint8_t volume_level = 5;
+uint8_t volume_level = 5;
 
 gpio_s CS;
 gpio_s DREQ; // Data Request input
@@ -54,6 +54,8 @@ void mp3_player_task(void *p);
 void read_reg(void);
 void clockf_init(void);
 void play_pause_button(void *p);
+void volume_C(bool higher, bool initial);
+void Volume_Control(void *p);
 
 int main(void) {
   // Adds the ability for CLI commands
@@ -81,14 +83,16 @@ int main(void) {
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
   xTaskCreate(play_pause_button, "play_pause", 1024, NULL, PRIORITY_LOW, NULL);
-  
-  song_list__populate();
-  for (size_t song_number = 0; song_number < song_list__get_item_count(); song_number++) {
-    printf("Song %2d: %s\n", (1 + song_number), song_list__get_name_for_item(song_number));
 
+  song_list__populate();
+  for (size_t song_number = 0; song_number < song_list__get_item_count();
+       song_number++) {
+    printf("Song %2d: %s\n", (1 + song_number),
+           song_list__get_name_for_item(song_number));
   }
-  
-  xtaskCreate(Volume_Control,"Volume_Control",1024,NULL,PRIORITY_HIGH,NULL);
+
+  xTaskCreate(Volume_Control, "Volume_Control", 1024, NULL, PRIORITY_HIGH,
+              NULL);
   clockf_init();
   read_reg();
   MP3PlayPause = xTaskGetHandle("mp3_player");
@@ -190,102 +194,78 @@ void play_pause_button(void *p) {
   }
 }
 
+void volume_C(bool higher, bool initial) {
+  if (higher && volume_level < 8 && !initial) {
+    volume_level++;
+  } else if (!higher && volume_level > 1 && !initial) {
+    volume_level--;
+  }
 
-void volume_C(bool higher, bool initial)
-{
-    if(higher && volume_level < 8 && !initial)
-    {
-        volume_level++;
-    }
-    else if(!higher && volume_level > 1 && !initial){
-        volume_level--;
-    }
+  if (volume_level == 1) {
+    // write_to_decoder(SCI_VOL, 0xFEFE);
+    printf("volume level = %i", volume_level);
+  }
 
-    if(volume_level == 1)
-    {
-        write_to_decoder(SCI_VOL, 0xFEFE);
-        printf("volume level = %i", volume_level);
-    }
+  else if (volume_level == 2) {
+    // write_to_decoder(SCI_VOL, 0x4545);
+    printf("volume level = %i", volume_level);
+  }
 
-    else if(volume_level == 2)
-    {
-        write_to_decoder(SCI_VOL, 0x4545);
-        printf("volume level = %i", volume_level);
-    }
+  else if (volume_level == 3) {
+    // write_to_decoder(SCI_VOL, 0x4040);
+    printf("volume level = %i", volume_level);
+  }
 
-    else if(volume_level == 3)
-    {
-        write_to_decoder(SCI_VOL, 0x4040);
-        printf("volume level = %i", volume_level);
-    }
+  else if (volume_level == 4) {
+    // write_to_decoder(SCI_VOL, 0x3535);
+    printf("volume level = %i", volume_level);
+  }
 
-    else if(volume_level == 4)
-    {
-        write_to_decoder(SCI_VOL, 0x3535);
-        printf("volume level = %i", volume_level);
-    }
-    
-    else if(volume_level == 5)
-    {
-        write_to_decoder(SCI_VOL, 0x3030);
-        printf("volume level = %i", volume_level);
-    }
+  else if (volume_level == 5) {
+    // write_to_decoder(SCI_VOL, 0x3030);
+    printf("volume level = %i", volume_level);
+  }
 
-    else if(volume_level == 6)
-    {
-        write_to_decoder(SCI_VOL, 0x2525);
-        printf("volume level = %i", volume_level);
-    }
+  else if (volume_level == 6) {
+    // write_to_decoder(SCI_VOL, 0x2525);
+    printf("volume level = %i", volume_level);
+  }
 
-    else if(volume_level == 7)
-    {
-        write_to_decoder(SCI_VOL, 0x2020);
-        printf("volume level = %i", volume_level);
-    }
-    
+  else if (volume_level == 7) {
+    // write_to_decoder(SCI_VOL, 0x2020);
+    printf("volume level = %i", volume_level);
+  }
 
-    else if(volume_level == 8)
-    {
-        write_to_decoder(SCI_VOL, 0x1010);
-        printf("volume level = %i", volume_level);
-        
-    }
-    vTaskDelay(1000);
+  else if (volume_level == 8) {
+    // write_to_decoder(SCI_VOL, 0x1010);
+    printf("volume level = %i", volume_level);
+  }
+  vTaskDelay(1000);
 }
 
-
-void Volume_Control(void *p)
-{
-    bool left_volume_s = false;
-    bool right_volume_s = false;
-    while(1)
-    {
-        vTaskDelay(100);
-        if(gpio__get(Volume_up))
-        {
-            while(gpio__get(Volume_up)){
-                vTaskDelay(1);
-            }
-            left_volume_s = true;
-        }
-        else if(gpio__get(Volume_down))
-        {
-            while(gpio__get(Volume_down)){
-                vTaskDelay(1);
-            }
-            right_volume_s = true;
-        }
-
-        if(left_volume_s)
-        {
-            volume_C(true, false);
-            left_volume_s = false;
-        }
-        else if(right_volume_s)
-        {
-            volume_C(false, false);
-            right_volume_s = false;
-        }
-
+void Volume_Control(void *p) {
+  bool left_volume_s = false;
+  bool right_volume_s = false;
+  while (1) {
+    vTaskDelay(100);
+    if (gpio__get(Volume_up)) {
+      while (gpio__get(Volume_up)) {
+        vTaskDelay(1);
+      }
+      left_volume_s = true;
+    } else if (gpio__get(Volume_down)) {
+      while (gpio__get(Volume_down)) {
+        vTaskDelay(1);
+      }
+      right_volume_s = true;
     }
+
+    if (left_volume_s) {
+      volume_C(true, false);
+      left_volume_s = false;
+    } else if (right_volume_s) {
+      volume_C(false, false);
+      right_volume_s = false;
+    }
+  }
 }
