@@ -80,6 +80,13 @@ int main(void) {
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
   xTaskCreate(play_pause_button, "play_pause", 1024, NULL, PRIORITY_LOW, NULL);
+  
+  song_list__populate();
+  for (size_t song_number = 0; song_number < song_list__get_item_count(); song_number++) {
+    printf("Song %2d: %s\n", (1 + song_number), song_list__get_name_for_item(song_number));
+
+  }
+  
   xtaskCreate(Volume_Control,"Volume_Control",1024,NULL,PRIORITY_HIGH,NULL);
   clockf_init();
   read_reg();
