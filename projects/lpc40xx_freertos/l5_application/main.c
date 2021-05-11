@@ -21,6 +21,7 @@
 #include "ff.h"
 #include "ssp2.h"
 #include <string.h>
+#include "song_list.h"
 
 typedef char songname_t[32];
 typedef char songbyte_t[512];
