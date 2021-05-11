@@ -17,6 +17,7 @@
 #include "task.h"
 #include <stdlib.h>
 
+#include "2004_LCD.h"
 #include "event_groups.h"
 #include "ff.h"
 #include "song_list.h"
@@ -91,10 +92,10 @@ int main(void) {
            song_list__get_name_for_item(song_number));
   }
 
-  xTaskCreate(Volume_Control, "Volume_Control", 1024, NULL, PRIORITY_HIGH,
-              NULL);
+  xTaskCreate(Volume_Control, "Volume", 1024, NULL, PRIORITY_HIGH, NULL);
   clockf_init();
   read_reg();
+  LCD2004_init();
   MP3PlayPause = xTaskGetHandle("mp3_player");
   vTaskStartScheduler();
   return 0;
