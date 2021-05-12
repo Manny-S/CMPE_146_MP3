@@ -13,3 +13,5 @@ void LCD2004_print_char(char letter);
 void LCD2004_print(int rows, int cols, char string[20]);
 
 void LCD2004_clear(void);
+
+void LCD2004_menu1(char name[20]);

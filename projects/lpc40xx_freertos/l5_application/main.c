@@ -46,7 +46,12 @@ gpio_s CS;
 gpio_s DREQ; // Data Request input
 gpio_s RST;
 gpio_s XDCS;
+
 gpio_s play_pause;
+gpio_s button1;
+gpio_s button2;
+gpio_s button3;
+
 gpio_s Volume_up;
 gpio_s Volume_down;
 
@@ -57,6 +62,7 @@ void clockf_init(void);
 void play_pause_button(void *p);
 void volume_C(bool higher, bool initial);
 void Volume_Control(void *p);
+void menu(void *p);
 
 int main(void) {
   // Adds the ability for CLI commands
@@ -69,7 +75,12 @@ int main(void) {
   DREQ = gpio__construct_as_input(0, 6);
   RST = gpio__construct_as_output(0, 8);
   XDCS = gpio__construct_as_output(0, 26);
+
   play_pause = gpio__construct_as_input(1, 19);
+  button1 = gpio__construct_as_input(1, 15);
+  button2 = gpio__construct_as_input(0, 30);
+  button3 = gpio__construct_as_input(0, 29);
+
   Volume_up = gpio__construct_as_input(1, 10);
   Volume_down = gpio__construct_as_input(1, 14);
 
@@ -84,6 +95,8 @@ int main(void) {
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
   xTaskCreate(play_pause_button, "play_pause", 1024, NULL, PRIORITY_LOW, NULL);
+  xTaskCreate(Volume_Control, "Volume", 1024, NULL, PRIORITY_LOW, NULL);
+  xTaskCreate(menu, "menu", 1024, NULL, PRIORITY_LOW, NULL);
 
   song_list__populate();
   for (size_t song_number = 0; song_number < song_list__get_item_count();
@@ -91,21 +104,50 @@ int main(void) {
     printf("Song %2d: %s\n", (1 + song_number),
            song_list__get_name_for_item(song_number));
   }
-
-  xTaskCreate(Volume_Control, "Volume", 1024, NULL, PRIORITY_HIGH, NULL);
   clockf_init();
-  read_reg();
   LCD2004_init();
-  const char *name_song[32];
-  name_song[0] = song_list__get_name_for_item(0);
-  name_song[1] = song_list__get_name_for_item(1);
-  LCD2004_print(0, 0, name_song[0]);
-  LCD2004_print(1, 0, name_song[1]);
-  LCD2004_print(2, 0, "3rd Line");
+
   MP3PlayPause = xTaskGetHandle("mp3_player");
   vTaskStartScheduler();
   return 0;
 }
+
+void menu(void *p) {
+  int menu = 0;
+  int song_index = 0;
+  int song_index_max = song_list__get_item_count() - 1;
+  char *song_name = song_list__get_name_for_item(song_index);
+  LCD2004_menu1(song_name);
+  while (1) {
+    switch (menu) {
+    case 0:
+      if (gpio__get(button1) && song_index < song_index_max) {
+        song_index++;
+        song_name = song_list__get_name_for_item(song_index);
+        LCD2004_menu1(song_name);
+        vTaskDelay(10);
+      }
+      if (gpio__get(button2) && song_index > 0) {
+        song_index--;
+        song_name = song_list__get_name_for_item(song_index);
+        LCD2004_menu1(song_name);
+        vTaskDelay(10);
+      }
+      if (gpio__get(button3)) {
+        xQueueSend(Q_songname, song_name, portMAX_DELAY);
+        // menu++;
+        vTaskDelay(10);
+      }
+      break;
+
+    default:
+      menu = 0;
+      break;
+    }
+    vTaskDelay(1);
+  }
+}
+
 void clockf_init(void) {
   uint8_t byte1 = 0x88;
   uint8_t byte2 = 0x00;
