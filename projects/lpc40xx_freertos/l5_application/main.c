@@ -96,6 +96,12 @@ int main(void) {
   clockf_init();
   read_reg();
   LCD2004_init();
+  const char *name_song[32];
+  name_song[0] = song_list__get_name_for_item(0);
+  name_song[1] = song_list__get_name_for_item(1);
+  LCD2004_print(0, 0, name_song[0]);
+  LCD2004_print(1, 0, name_song[1]);
+  LCD2004_print(2, 0, "3rd Line");
   MP3PlayPause = xTaskGetHandle("mp3_player");
   vTaskStartScheduler();
   return 0;

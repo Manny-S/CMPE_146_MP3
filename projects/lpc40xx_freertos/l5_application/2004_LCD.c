@@ -12,7 +12,26 @@ void LCD2004_init(void) {
 
 void LCD2004_print_char(char letter) { uart__polled_put(UART__2, letter); }
 
-void LCD2004_print(char string[80]) {
+void LCD2004_print(int rows, int cols, char string[20]) {
+  switch (rows) {
+  case 0:
+    rows = 0;
+    break;
+  case 1:
+    rows = 64;
+    break;
+  case 2:
+    rows = 20;
+    break;
+  case 3:
+    rows = 84;
+    break;
+  default:
+    rows = 0;
+    break;
+  }
+  uart__polled_put(UART__2, 254);
+  uart__polled_put(UART__2, 128 + rows + cols);
   for (int i = 0; i < strlen(string); i++) {
     LCD2004_print_char(string[i]);
   }
