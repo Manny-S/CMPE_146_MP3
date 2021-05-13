@@ -27,6 +27,7 @@
 typedef char songname_t[32];
 typedef char songbyte_t[512];
 QueueHandle_t Q_songname;
+bool new_song = false;
 QueueHandle_t Q_songdata;
 
 TaskHandle_t MP3PlayPause = NULL;
@@ -134,9 +135,9 @@ void menu(void *p) {
         vTaskDelay(10);
       }
       if (gpio__get(button3)) {
-        xQueueSend(Q_songname, song_name, portMAX_DELAY);
+        new_song = true;
+        xQueueSend(Q_songname, song_name, 10);
         // menu++;
-        vTaskDelay(10);
       }
       break;
 
@@ -186,7 +187,8 @@ void mp3_reader_task(void *p) {
 
       result = f_open(&file, name, FA_READ);
       if (FR_OK == result) {
-        while (!f_eof(&file)) {
+        new_song = false;
+        while (!f_eof(&file) && new_song != true) {
           f_read(&file, chunk, sizeof(songbyte_t), &readCount);
           xQueueSend(Q_songdata, &chunk, portMAX_DELAY);
         }
