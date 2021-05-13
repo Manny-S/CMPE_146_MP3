@@ -126,13 +126,13 @@ void menu(void *p) {
         song_index++;
         song_name = song_list__get_name_for_item(song_index);
         LCD2004_menu1(song_name);
-        vTaskDelay(10);
+        vTaskDelay(100);
       }
       if (gpio__get(button2) && song_index > 0) {
         song_index--;
         song_name = song_list__get_name_for_item(song_index);
         LCD2004_menu1(song_name);
-        vTaskDelay(10);
+        vTaskDelay(100);
       }
       if (gpio__get(button3)) {
         new_song = true;

@@ -3324,7 +3324,7 @@ END GROUP
                 0x0000000010000000                PROVIDE (_bdata_vma = ADDR (.data))
 OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000    0x288d0
+.debug_info     0x0000000000000000    0x288d2
  .debug_info    0x0000000000000000      0xb13 _build_lpc40xx_freertos/objects/entry_point.o
  .debug_info    0x0000000000000b13      0xd91 _build_lpc40xx_freertos/objects/interrupt_vector_table.o
  .debug_info    0x00000000000018a4      0x454 _build_lpc40xx_freertos/objects/clock.o
@@ -3366,7 +3366,7 @@ OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
  .debug_info    0x0000000000024311      0x978 _build_lpc40xx_freertos/objects/lpc_peripherals.o
  .debug_info    0x0000000000024c89      0xf3e _build_lpc40xx_freertos/objects/ssp2.o
  .debug_info    0x0000000000025bc7     0x12e7 _build_lpc40xx_freertos/objects/uart.o
- .debug_info    0x0000000000026eae     0x1a22 _build_lpc40xx_freertos/objects/main.o
+ .debug_info    0x0000000000026eae     0x1a24 _build_lpc40xx_freertos/objects/main.o
 
 .debug_abbrev   0x0000000000000000     0x6df1
  .debug_abbrev  0x0000000000000000      0x24e _build_lpc40xx_freertos/objects/entry_point.o

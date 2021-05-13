@@ -23,16 +23,16 @@ Idx Name             Size      VMA       LMA       File off  Algn  Flags
   2 .data            00000388  10000000  0000df7c  00020000  2**2  CONTENTS, ALLOC, LOAD, DATA
   3 .bss             0000217c  10000388  0000e304  00020388  2**3  ALLOC
   4 .persistent_ram2 00000028  20000000  20000000  00030000  2**2  ALLOC
-  5 .debug_info      000288d0  00000000  00000000  00020388  2**0  CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev    00006df1  00000000  00000000  00048c58  2**0  CONTENTS, READONLY, DEBUGGING
-  7 .debug_aranges   00001050  00000000  00000000  0004fa49  2**0  CONTENTS, READONLY, DEBUGGING
-  8 .debug_ranges    00001dc0  00000000  00000000  00050a99  2**0  CONTENTS, READONLY, DEBUGGING
-  9 .debug_line      00013632  00000000  00000000  00052859  2**0  CONTENTS, READONLY, DEBUGGING
- 10 .debug_str       00006d21  00000000  00000000  00065e8b  2**0  CONTENTS, READONLY, DEBUGGING
- 11 .comment         00000076  00000000  00000000  0006cbac  2**0  CONTENTS, READONLY
- 12 .ARM.attributes  00000032  00000000  00000000  0006cc22  2**0  CONTENTS, READONLY
- 13 .debug_frame     00004780  00000000  00000000  0006cc54  2**2  CONTENTS, READONLY, DEBUGGING
- 14 .debug_loc       00013b5a  00000000  00000000  000713d4  2**0  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info      000288d2  00000000  00000000  00020388  2**0  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev    00006df1  00000000  00000000  00048c5a  2**0  CONTENTS, READONLY, DEBUGGING
+  7 .debug_aranges   00001050  00000000  00000000  0004fa4b  2**0  CONTENTS, READONLY, DEBUGGING
+  8 .debug_ranges    00001dc0  00000000  00000000  00050a9b  2**0  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line      00013632  00000000  00000000  0005285b  2**0  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str       00006d21  00000000  00000000  00065e8d  2**0  CONTENTS, READONLY, DEBUGGING
+ 11 .comment         00000076  00000000  00000000  0006cbae  2**0  CONTENTS, READONLY
+ 12 .ARM.attributes  00000032  00000000  00000000  0006cc24  2**0  CONTENTS, READONLY
+ 13 .debug_frame     00004780  00000000  00000000  0006cc58  2**2  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_loc       00013b5a  00000000  00000000  000713d8  2**0  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00000000 l    d  .text	00000000 .text
 0000df74 l    d  .ARM.exidx	00000000 .ARM.exidx
@@ -20991,7 +20991,7 @@ void menu(void *p) {
         song_index++;
         song_name = song_list__get_name_for_item(song_index);
         LCD2004_menu1(song_name);
-        vTaskDelay(10);
+        vTaskDelay(100);
       }
       if (gpio__get(button2) && song_index > 0) {
     5da0:	f8df 807c 	ldr.w	r8, [pc, #124]	; 5e20 <menu+0x98>
@@ -20999,7 +20999,7 @@ void menu(void *p) {
         song_index--;
         song_name = song_list__get_name_for_item(song_index);
         LCD2004_menu1(song_name);
-        vTaskDelay(10);
+        vTaskDelay(100);
       }
       if (gpio__get(button3)) {
     5da4:	f8df 907c 	ldr.w	r9, [pc, #124]	; 5e24 <menu+0x9c>
@@ -21026,8 +21026,8 @@ void menu(void *p) {
         LCD2004_menu1(song_name);
     5dc0:	f7fd f8ce 	bl	2f60 <LCD2004_menu1>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:129
-        vTaskDelay(10);
-    5dc4:	200a      	movs	r0, #10
+        vTaskDelay(100);
+    5dc4:	2064      	movs	r0, #100	; 0x64
     5dc6:	f7fe fdcd 	bl	4964 <vTaskDelay>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:131
       if (gpio__get(button2) && song_index > 0) {
@@ -21049,8 +21049,8 @@ void menu(void *p) {
         LCD2004_menu1(song_name);
     5de2:	f7fd f8bd 	bl	2f60 <LCD2004_menu1>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:135
-        vTaskDelay(10);
-    5de6:	200a      	movs	r0, #10
+        vTaskDelay(100);
+    5de6:	2064      	movs	r0, #100	; 0x64
     5de8:	f7fe fdbc 	bl	4964 <vTaskDelay>
 /Users/Manny/CMPE_146_MP3/projects/lpc40xx_freertos/l5_application/main.c:137
       if (gpio__get(button3)) {
