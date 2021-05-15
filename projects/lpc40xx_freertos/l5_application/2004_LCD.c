@@ -44,18 +44,19 @@ void LCD2004_clear(void) {
 }
 
 void LCD2004_menu1(char name[20]) {
+  Metadata song_meta = song_list__get_metadata(name);
   LCD2004_clear();
-  LCD2004_print(0, 0, " ---Select Song--- ");
-  LCD2004_print(1, 0, name);
-  // Print metadata
+  LCD2004_print(0, 0, song_meta.title);
+  LCD2004_print(1, 0, song_meta.album);
+  LCD2004_print(2, 0, song_meta.artist);
   LCD2004_print(3, 0, "Select    <    >");
 }
 
 void LCD2004_menu_play(char name[20]) {
   LCD2004_clear();
-  LCD2004_print(0, 0, name);
-  LCD2004_print(1, 0, "     Album     ");  // metadata: needs to be updated
-  LCD2004_print(2, 0, "     Artist     "); // metadata: needs to be updated
+  LCD2004_print(0, 0, "Now Playing");
+  LCD2004_print(1, 0, name);
+  LCD2004_print(2, 0, "");
   LCD2004_print(3, 0, "Bck  Vol Treb  Play");
 }
 

@@ -133,9 +133,9 @@ void menu(void *p) {
       }
       if (gpio__get(button3)) {
         new_song = true;
-        xQueueSend(Q_songname, song_name, 10);
         menu_level++;
         LCD2004_menu_play(song_name);
+        xQueueSend(Q_songname, song_name, 10);
         vTaskDelay(100);
       }
       break;
@@ -143,6 +143,8 @@ void menu(void *p) {
     case 1: // play menu
       if (gpio__get(button3)) {
         menu_level--;
+        new_song = true;
+        xQueueSend(Q_songname, "", 10);
         LCD2004_menu1(song_name);
         vTaskDelay(100);
       }
@@ -222,6 +224,7 @@ void mp3_reader_task(void *p) {
           xQueueSend(Q_songdata, &chunk, portMAX_DELAY);
         }
         f_close(&file);
+        vTaskDelay(10);
       } else {
         printf("ERROR: File not found\n");
       }

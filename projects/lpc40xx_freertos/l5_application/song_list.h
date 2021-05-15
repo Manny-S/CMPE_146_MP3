@@ -12,15 +12,14 @@ static song_memory_t list_of_songs[32];
 static size_t number_of_songs;
 #endif
 
-typedef struct
-{
-    char tagName[3];
-    char title[30];
-    char artist[30];
-    char album[30];
-    char year[4];
-    // char comment[30];
-    // int genre;
+typedef struct {
+  char tagName[4];
+  char title[31];
+  char artist[31];
+  char album[31];
+  char year[5];
+  // char comment[30];
+  // int genre;
 } Metadata;
 
 void song_list__populate(void);

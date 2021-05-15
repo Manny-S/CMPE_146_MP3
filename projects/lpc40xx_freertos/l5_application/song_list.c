@@ -81,36 +81,35 @@ Metadata song_list__get_metadata(char *name) {
   printf("Fetching metadata for: %s\n", name);
 
   result = f_open(&file, name, FA_READ);
+  printf("f_open result = %d\n", result);
   if (FR_OK == result) {
     // fseek(file, -128,SEEK_END);
     // move to 128 bytes before end of file to read tags
-    f_lseek(&file, f_size(&file) - 128);
-    while (!f_eof(&file)) {
-      // f_read(&file, chunk, sizeof(songbyte_t), &readCount);
+    result = f_lseek(&file, (f_size(&file) - 128));
+    printf("f_lseek result = %d\n", result);
+    // f_read(&file, chunk, sizeof(songbyte_t), &readCount);
 
-      // for (int i = 0; i < 3; i++) {
-      f_read(&file, (void *)meta.tagName, sizeof(chunk) * 3,
-             &readCount); // tag
-                          // meta.tagName[i] = (char)chunk;
-      //}
+    // for (int i = 0; i < 3; i++) {
+    result = f_read(&file, meta.tagName, 3, &readCount); // tag
+    meta.tagName[3] = '\0';
+    result = f_read(&file, meta.title, 30, &readCount); // tag
+    meta.title[30] = '\0';
+    result = f_read(&file, meta.artist, 30, &readCount); // tag
+    meta.artist[30] = '\0';
+    result = f_read(&file, meta.album, 30, &readCount); // tag
+    meta.album[30] = '\0';
+    result = f_read(&file, meta.year, 4, &readCount); // tag
+    meta.year[4] = '\0';
+    printf("f_read result = %d\n", result);
+    printf("tagname = %s\n", meta.tagName);
+    printf("readcount = %d\n", readCount);
 
-      f_read(&file, (void *)meta.title, sizeof(chunk) * 30, &readCount);
-      /*for (int i = 0; i < 30; i++) {
-        f_read(&file, (char)chunk, sizeof(chunk), &readCount); // title
-        meta.title[i] = (char)chunk;
-      }*/
+    // f_read(&file, (void *)meta.title, sizeof(chunk) * 30, &readCount);
 
-      f_read(&file, (void *)meta.artist, sizeof(chunk) * 30, &readCount);
-      f_read(&file, (void *)meta.album, sizeof(chunk) * 30, &readCount);
-      f_read(&file, (void *)meta.year, sizeof(chunk) * 4, &readCount);
-      /*
-      f_read(&file, chunk, sizeof(chunk) * 30, &readCount); // artist
-      meta.artist = chunk;
-      f_read(&file, chunk, sizeof(chunk) * 30, &readCount); // album
-      meta.album = chunk;
-      f_read(&file, chunk, sizeof(chunk) * 4, &readCount); // year
-      meta.year = chunk;*/
-    }
+    // f_read(&file, (void *)meta.artist, sizeof(chunk) * 30, &readCount);
+    // f_read(&file, (void *)meta.album, sizeof(chunk) * 30, &readCount);
+    // f_read(&file, (void *)meta.year, sizeof(chunk) * 4, &readCount);
+
     f_close(&file);
   } else {
     printf("ERROR: File not found\n");
