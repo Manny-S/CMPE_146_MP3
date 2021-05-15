@@ -60,6 +60,7 @@ void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
 void read_reg(void);
 void clockf_init(void);
+void decoder_write(uint8_t address,uint16_t data);
 void play_pause_button(void *p);
 void volume_C(bool higher, bool initial);
 void Volume_Control(void *p);
@@ -160,6 +161,15 @@ void clockf_init(void) {
   gpio__set(CS);
 }
 
+void decoder_write(uint8_t address,uint16_t data){
+  gpio__reset(CS);
+  ssp2__exchange_byte(WRITE);
+  ssp2__exchange_byte(address);
+  ssp2__exchange_byte((data>>8)& 0xFF);
+  ssp2__exchange_byte((data>>0)& 0xFF);
+  gpio__set(CS);
+}
+
 void read_reg(void) {
   uint8_t byte1 = 0xFF;
   uint8_t byte2 = 0xFF;
@@ -253,17 +263,17 @@ void volume_C(bool higher, bool initial) {
   }
 
   if (volume_level == 1) {
-    // write_to_decoder(SCI_VOL, 0xFEFE);
+    decoder_write(SCI_VOL, 0xFEFE);
     printf("volume level = %i", volume_level);
   }
 
   else if (volume_level == 2) {
-    // write_to_decoder(SCI_VOL, 0x4545);
+    decoder_write(SCI_VOL, 0x4545);
     printf("volume level = %i", volume_level);
   }
 
   else if (volume_level == 3) {
-    // write_to_decoder(SCI_VOL, 0x4040);
+    decoder_write(SCI_VOL, 0x4040);
     printf("volume level = %i", volume_level);
   }
 
