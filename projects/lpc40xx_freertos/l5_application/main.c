@@ -256,10 +256,10 @@ void play_pause_button(void *p) {
 }
 
 void volume_C(bool higher, bool initial) {
-  if (higher && volume_level < 8 && !initial) {
-    volume_level++;
-  } else if (!higher && volume_level > 1 && !initial) {
-    volume_level--;
+  if (higher && v_level < 8 && !initial) {
+    v_level++;
+  } else if (!higher && v_level > 1 && !initial) {
+    v_level--;
   }
 
   switch (v_level)
