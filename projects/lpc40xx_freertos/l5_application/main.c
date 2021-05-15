@@ -43,24 +43,24 @@ const uint8_t SCI_VOL = 0xB;
 const uint8_t DUMB = 0xFF;
 uint8_t v_level = 5;
 
+int menu_level = 0;
+
 gpio_s CS;
 gpio_s DREQ; // Data Request input
 gpio_s RST;
 gpio_s XDCS;
 
+// buttons
 gpio_s play_pause;
 gpio_s button1;
 gpio_s button2;
 gpio_s button3;
 
-gpio_s Volume_up;
-gpio_s Volume_down;
-
 void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
 void read_reg(void);
 void clockf_init(void);
-void decoder_write(uint8_t address,uint16_t data);
+void decoder_write(uint8_t address, uint16_t data);
 void play_pause_button(void *p);
 void volume_C(bool higher, bool initial);
 void Volume_Control(void *p);
@@ -82,9 +82,6 @@ int main(void) {
   button1 = gpio__construct_as_input(1, 15);
   button2 = gpio__construct_as_input(0, 30);
   button3 = gpio__construct_as_input(0, 29);
-
-  Volume_up = gpio__construct_as_input(1, 10);
-  Volume_down = gpio__construct_as_input(1, 14);
 
   gpio__reset(RST);
   gpio__set(RST);
@@ -115,14 +112,13 @@ int main(void) {
 }
 
 void menu(void *p) {
-  int menu = 0;
   int song_index = 0;
   int song_index_max = song_list__get_item_count() - 1;
   char *song_name = song_list__get_name_for_item(song_index);
   LCD2004_menu1(song_name);
   while (1) {
-    switch (menu) {
-    case 0:
+    switch (menu_level) {
+    case 0: // main menu
       if (gpio__get(button1) && song_index < song_index_max) {
         song_index++;
         song_name = song_list__get_name_for_item(song_index);
@@ -138,12 +134,35 @@ void menu(void *p) {
       if (gpio__get(button3)) {
         new_song = true;
         xQueueSend(Q_songname, song_name, 10);
-        // menu++;
+        menu_level++;
+        LCD2004_menu_play(song_name);
+        vTaskDelay(100);
+      }
+      break;
+
+    case 1: // play menu
+      if (gpio__get(button3)) {
+        menu_level--;
+        LCD2004_menu1(song_name);
+        vTaskDelay(100);
+      }
+      if (gpio__get(button2)) {
+        menu_level++;
+        LCD2004_menu_volume(song_name);
+        vTaskDelay(100);
+      }
+      break;
+
+    case 2: // volume menu
+      if (gpio__get(button3)) {
+        menu_level--;
+        LCD2004_menu_play(song_name);
+        vTaskDelay(100);
       }
       break;
 
     default:
-      menu = 0;
+      menu_level = 0;
       break;
     }
     vTaskDelay(1);
@@ -161,12 +180,12 @@ void clockf_init(void) {
   gpio__set(CS);
 }
 
-void decoder_write(uint8_t address,uint16_t data){
+void decoder_write(uint8_t address, uint16_t data) {
   gpio__reset(CS);
   ssp2__exchange_byte(WRITE);
   ssp2__exchange_byte(address);
-  ssp2__exchange_byte((data>>8)& 0xFF);
-  ssp2__exchange_byte((data>>0)& 0xFF);
+  ssp2__exchange_byte((data >> 8) & 0xFF);
+  ssp2__exchange_byte((data >> 0) & 0xFF);
   gpio__set(CS);
 }
 
@@ -262,52 +281,51 @@ void volume_C(bool higher, bool initial) {
     v_level--;
   }
 
-  switch (v_level)
-     {
-      case 1:
-        decoder_write(SCI_VOL, 0xFEFE);
-        printf("volume = %i", v_level);
-      break;
+  switch (v_level) {
+  case 1:
+    decoder_write(SCI_VOL, 0xFEFE);
+    // printf("volume = %i", v_level);
+    break;
 
-      case 2:
-        decoder_write(SCI_VOL, 0x4545);
-        printf("volume  = %i", v_level);
-      break;
+  case 2:
+    decoder_write(SCI_VOL, 0x4545);
+    // printf("volume  = %i", v_level);
+    break;
 
-      case 3:
-        decoder_write(SCI_VOL, 0x4040);
-        printf("volume = %i", v_level);
-      break;
+  case 3:
+    decoder_write(SCI_VOL, 0x4040);
+    // printf("volume = %i", v_level);
+    break;
 
-      case 4:
-        decoder_write(SCI_VOL, 0x3535);
-        printf("volume  = %i", v_level);
-      break;
+  case 4:
+    decoder_write(SCI_VOL, 0x3535);
+    // printf("volume  = %i", v_level);
+    break;
 
-      case 5:
-        decoder_write(SCI_VOL, 0x3030);
-        printf("volume  = %i", v_level);
-      break;
+  case 5:
+    decoder_write(SCI_VOL, 0x3030);
+    // printf("volume  = %i", v_level);
+    break;
 
-      case 6:
-        decoder_write(SCI_VOL, 0x2525);
-        printf("volume  = %i", v_level);
-      break;
+  case 6:
+    decoder_write(SCI_VOL, 0x2525);
+    // printf("volume  = %i", v_level);
+    break;
 
-      case 7:
-        decoder_write(SCI_VOL, 0x2020);
-        printf("volume  = %i", v_level);
-      break;
+  case 7:
+    decoder_write(SCI_VOL, 0x2020);
+    // printf("volume  = %i", v_level);
+    break;
 
-      case 8:
-        decoder_write(SCI_VOL, 0x1010);
-        printf("volume = %i", v_level);
-      break;
+  case 8:
+    decoder_write(SCI_VOL, 0x1010);
+    // printf("volume = %i", v_level);
+    break;
 
-      default:
-        decoder_writer(SCI_VOL, 0x3535);
-        printf("volume  = %i", v_level);
-    }
+  default:
+    decoder_write(SCI_VOL, 0x3535);
+    // printf("volume  = %i", v_level);
+  }
   vTaskDelay(1000);
 }
 
@@ -316,13 +334,13 @@ void Volume_Control(void *p) {
   bool v_decrease = false;
   while (1) {
     vTaskDelay(100);
-    if (gpio__get(Volume_up)) {
-      while (gpio__get(Volume_up)) {
+    if (gpio__get(button2) && menu_level == 2) {
+      while (gpio__get(button2)) {
         vTaskDelay(1);
       }
       v_increase = true;
-    } else if (gpio__get(Volume_down)) {
-      while (gpio__get(Volume_down)) {
+    } else if (gpio__get(button1) && menu_level == 2) {
+      while (gpio__get(button1)) {
         vTaskDelay(1);
       }
       v_decrease = true;
