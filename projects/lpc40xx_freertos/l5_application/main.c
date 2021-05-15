@@ -41,7 +41,7 @@ const uint8_t SCI_STATUS = 0x1;
 const uint8_t SCI_CLOCKF = 0x3;
 const uint8_t SCI_VOL = 0xB;
 const uint8_t DUMB = 0xFF;
-uint8_t volume_level = 5;
+uint8_t v_level = 5;
 
 gpio_s CS;
 gpio_s DREQ; // Data Request input
@@ -262,45 +262,52 @@ void volume_C(bool higher, bool initial) {
     volume_level--;
   }
 
-  if (volume_level == 1) {
-    decoder_write(SCI_VOL, 0xFEFE);
-    printf("volume level = %i", volume_level);
-  }
+  switch (v_level)
+     {
+      case 1:
+        decoder_write(SCI_VOL, 0xFEFE);
+        printf("volume = %i", v_level);
+      break;
 
-  else if (volume_level == 2) {
-    decoder_write(SCI_VOL, 0x4545);
-    printf("volume level = %i", volume_level);
-  }
+      case 2:
+        decoder_write(SCI_VOL, 0x4545);
+        printf("volume  = %i", v_level);
+      break;
 
-  else if (volume_level == 3) {
-    decoder_write(SCI_VOL, 0x4040);
-    printf("volume level = %i", volume_level);
-  }
+      case 3:
+        decoder_write(SCI_VOL, 0x4040);
+        printf("volume = %i", v_level);
+      break;
 
-  else if (volume_level == 4) {
-    // write_to_decoder(SCI_VOL, 0x3535);
-    printf("volume level = %i", volume_level);
-  }
+      case 4:
+        decoder_write(SCI_VOL, 0x3535);
+        printf("volume  = %i", v_level);
+      break;
 
-  else if (volume_level == 5) {
-    // write_to_decoder(SCI_VOL, 0x3030);
-    printf("volume level = %i", volume_level);
-  }
+      case 5:
+        decoder_write(SCI_VOL, 0x3030);
+        printf("volume  = %i", v_level);
+      break;
 
-  else if (volume_level == 6) {
-    // write_to_decoder(SCI_VOL, 0x2525);
-    printf("volume level = %i", volume_level);
-  }
+      case 6:
+        decoder_write(SCI_VOL, 0x2525);
+        printf("volume  = %i", v_level);
+      break;
 
-  else if (volume_level == 7) {
-    // write_to_decoder(SCI_VOL, 0x2020);
-    printf("volume level = %i", volume_level);
-  }
+      case 7:
+        decoder_write(SCI_VOL, 0x2020);
+        printf("volume  = %i", v_level);
+      break;
 
-  else if (volume_level == 8) {
-    // write_to_decoder(SCI_VOL, 0x1010);
-    printf("volume level = %i", volume_level);
-  }
+      case 8:
+        decoder_write(SCI_VOL, 0x1010);
+        printf("volume = %i", v_level);
+      break;
+
+      default:
+        decoder_writer(SCI_VOL, 0x3535);
+        printf("volume  = %i", v_level);
+    }
   vTaskDelay(1000);
 }
 
