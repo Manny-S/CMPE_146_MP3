@@ -1,8 +1,8 @@
 #include <string.h>
 
-#include "song_list.h"
-
 #include "ff.h"
+#include "song_list.h"
+#include <stdio.h>
 
 static song_memory_t list_of_songs[32];
 static size_t number_of_songs;
@@ -68,4 +68,52 @@ const char *song_list__get_name_for_item(size_t item_number) {
   }
 
   return return_pointer;
+}
+
+Metadata song_list__get_metadata(char *name) {
+  // songname_t name;
+  char chunk;
+
+  FIL file;
+  FRESULT result;
+  UINT readCount;
+  Metadata meta;
+  printf("Fetching metadata for: %s\n", name);
+
+  result = f_open(&file, name, FA_READ);
+  if (FR_OK == result) {
+    // fseek(file, -128,SEEK_END);
+    // move to 128 bytes before end of file to read tags
+    f_lseek(&file, f_size(&file) - 128);
+    while (!f_eof(&file)) {
+      // f_read(&file, chunk, sizeof(songbyte_t), &readCount);
+
+      // for (int i = 0; i < 3; i++) {
+      f_read(&file, (void *)meta.tagName, sizeof(chunk) * 3,
+             &readCount); // tag
+                          // meta.tagName[i] = (char)chunk;
+      //}
+
+      f_read(&file, (void *)meta.title, sizeof(chunk) * 30, &readCount);
+      /*for (int i = 0; i < 30; i++) {
+        f_read(&file, (char)chunk, sizeof(chunk), &readCount); // title
+        meta.title[i] = (char)chunk;
+      }*/
+
+      f_read(&file, (void *)meta.artist, sizeof(chunk) * 30, &readCount);
+      f_read(&file, (void *)meta.album, sizeof(chunk) * 30, &readCount);
+      f_read(&file, (void *)meta.year, sizeof(chunk) * 4, &readCount);
+      /*
+      f_read(&file, chunk, sizeof(chunk) * 30, &readCount); // artist
+      meta.artist = chunk;
+      f_read(&file, chunk, sizeof(chunk) * 30, &readCount); // album
+      meta.album = chunk;
+      f_read(&file, chunk, sizeof(chunk) * 4, &readCount); // year
+      meta.year = chunk;*/
+    }
+    f_close(&file);
+  } else {
+    printf("ERROR: File not found\n");
+  }
+  return meta;
 }
