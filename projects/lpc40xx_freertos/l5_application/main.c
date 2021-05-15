@@ -312,28 +312,28 @@ void volume_C(bool higher, bool initial) {
 }
 
 void Volume_Control(void *p) {
-  bool left_volume_s = false;
-  bool right_volume_s = false;
+  bool v_increase = false;
+  bool v_decrease = false;
   while (1) {
     vTaskDelay(100);
     if (gpio__get(Volume_up)) {
       while (gpio__get(Volume_up)) {
         vTaskDelay(1);
       }
-      left_volume_s = true;
+      v_increase = true;
     } else if (gpio__get(Volume_down)) {
       while (gpio__get(Volume_down)) {
         vTaskDelay(1);
       }
-      right_volume_s = true;
+      v_decrease = true;
     }
 
-    if (left_volume_s) {
+    if (v_increase) {
       volume_C(true, false);
-      left_volume_s = false;
-    } else if (right_volume_s) {
+      v_increase = false;
+    } else if (v_decrease) {
       volume_C(false, false);
-      right_volume_s = false;
+      v_decrease = false;
     }
   }
 }
