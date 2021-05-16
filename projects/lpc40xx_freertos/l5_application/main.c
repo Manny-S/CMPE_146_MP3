@@ -62,8 +62,8 @@ void read_reg(void);
 void clockf_init(void);
 void decoder_write(uint8_t address, uint16_t data);
 void play_pause_button(void *p);
-void volume_C(bool higher, bool initial);
-void Volume_Control(void *p);
+void adjust_volume(bool higher);
+void volume_task(void *p);
 void menu(void *p);
 
 int main(void) {
@@ -94,7 +94,7 @@ int main(void) {
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
   xTaskCreate(play_pause_button, "play_pause", 1024, NULL, PRIORITY_LOW, NULL);
-  xTaskCreate(Volume_Control, "Volume", 1024, NULL, PRIORITY_LOW, NULL);
+  xTaskCreate(volume_task, "volume", 1024, NULL, PRIORITY_LOW, NULL);
   xTaskCreate(menu, "menu", 1024, NULL, PRIORITY_LOW, NULL);
 
   song_list__populate();
@@ -277,10 +277,10 @@ void play_pause_button(void *p) {
   }
 }
 
-void volume_C(bool higher, bool initial) {
-  if (higher && v_level < 8 && !initial) {
+void adjust_volume(bool higher) {
+  if (higher && v_level < 8 && !false) {
     v_level++;
-  } else if (!higher && v_level > 1 && !initial) {
+  } else if (!higher && v_level > 1 && !false) {
     v_level--;
   }
 
@@ -324,7 +324,7 @@ void volume_C(bool higher, bool initial) {
   vTaskDelay(1000);
 }
 
-void Volume_Control(void *p) {
+void volume_task(void *p) {
   bool v_increase = false;
   bool v_decrease = false;
   while (1) {
@@ -342,10 +342,10 @@ void Volume_Control(void *p) {
     }
 
     if (v_increase) {
-      volume_C(true, false);
+      adjust_volume(true);
       v_increase = false;
     } else if (v_decrease) {
-      volume_C(false, false);
+      adjust_volume(false);
       v_decrease = false;
     }
   }
