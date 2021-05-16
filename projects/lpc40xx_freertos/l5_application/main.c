@@ -287,42 +287,34 @@ void volume_C(bool higher, bool initial) {
   switch (v_level) {
   case 1:
     decoder_write(SCI_VOL, 0xFEFE);
-    // printf("volume = %i", v_level);
     break;
 
   case 2:
     decoder_write(SCI_VOL, 0x4545);
-    // printf("volume  = %i", v_level);
     break;
 
   case 3:
     decoder_write(SCI_VOL, 0x4040);
-    // printf("volume = %i", v_level);
     break;
 
   case 4:
     decoder_write(SCI_VOL, 0x3535);
-    // printf("volume  = %i", v_level);
     break;
 
   case 5:
     decoder_write(SCI_VOL, 0x3030);
-    // printf("volume  = %i", v_level);
     break;
 
   case 6:
     decoder_write(SCI_VOL, 0x2525);
-    // printf("volume  = %i", v_level);
     break;
 
   case 7:
     decoder_write(SCI_VOL, 0x2020);
-    // printf("volume  = %i", v_level);
     break;
 
   case 8:
     decoder_write(SCI_VOL, 0x1010);
-    // printf("volume = %i", v_level);
     break;
 
   default:
