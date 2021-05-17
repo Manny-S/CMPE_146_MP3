@@ -238,8 +238,8 @@ void pause_play_task(void *p) {
 
   while (1) {
     vTaskDelay(100);
-    if (gpio__get(pause_play_bttn)) {
-      while (gpio__get(pause_play_bttn)) {
+    if (gpio__get(pause_play_bttn) && menu_level != 0) {
+      while (gpio__get(pause_play_bttn) && menu_level != 0) {
         vTaskDelay(1);
       }
       pause_play_flag = true;

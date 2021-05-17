@@ -57,7 +57,7 @@ void LCD2004_menu_play(char name[20]) {
   LCD2004_print(0, 0, "Now Playing");
   LCD2004_print(1, 0, name);
   LCD2004_print(2, 0, "");
-  LCD2004_print(3, 0, "Bck  Vol Treb  Play");
+  LCD2004_print(3, 0, "Bck  Vol   /   Play");
 }
 
 void LCD2004_menu_volume(char name[20]) {
