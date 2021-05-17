@@ -72,7 +72,7 @@ const char *song_list__get_name_for_item(size_t item_number) {
 
 Metadata song_list__get_metadata(char *name) {
   // songname_t name;
-  char chunk;
+  // char chunk;
 
   FIL file;
   FRESULT result;
@@ -81,12 +81,12 @@ Metadata song_list__get_metadata(char *name) {
   printf("Fetching metadata for: %s\n", name);
 
   result = f_open(&file, name, FA_READ);
-  printf("f_open result = %d\n", result);
+  // printf("f_open result = %d\n", result);
   if (FR_OK == result) {
     // fseek(file, -128,SEEK_END);
     // move to 128 bytes before end of file to read tags
     result = f_lseek(&file, (f_size(&file) - 128));
-    printf("f_lseek result = %d\n", result);
+    // printf("f_lseek result = %d\n", result);
     // f_read(&file, chunk, sizeof(songbyte_t), &readCount);
 
     // for (int i = 0; i < 3; i++) {
@@ -100,9 +100,9 @@ Metadata song_list__get_metadata(char *name) {
     meta.album[30] = '\0';
     result = f_read(&file, meta.year, 4, &readCount); // tag
     meta.year[4] = '\0';
-    printf("f_read result = %d\n", result);
-    printf("tagname = %s\n", meta.tagName);
-    printf("readcount = %d\n", readCount);
+    // printf("f_read result = %d\n", result);
+    // printf("tagname = %s\n", meta.tagName);
+    // printf("readcount = %d\n", readCount);
 
     // f_read(&file, (void *)meta.title, sizeof(chunk) * 30, &readCount);
 
@@ -112,7 +112,8 @@ Metadata song_list__get_metadata(char *name) {
 
     f_close(&file);
   } else {
-    printf("ERROR: File not found\n");
+    f_close(&file);
+    printf("ERROR meta: File not found\n");
   }
   return meta;
 }

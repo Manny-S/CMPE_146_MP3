@@ -41,7 +41,7 @@ const uint8_t SCI_STATUS = 0x1;
 const uint8_t SCI_CLOCKF = 0x3;
 const uint8_t SCI_VOL = 0xB;
 const uint8_t DUMB = 0xFF;
-uint8_t v_level = 5;
+uint8_t v_level = 8;
 
 int menu_level = 0;
 
@@ -58,7 +58,6 @@ gpio_s button3;
 
 void mp3_reader_task(void *p);
 void mp3_player_task(void *p);
-void read_reg(void);
 void clockf_init(void);
 void decoder_write(uint8_t address, uint16_t data);
 void pause_play_task(void *p);
@@ -98,11 +97,7 @@ int main(void) {
   xTaskCreate(menu, "menu", 1024, NULL, PRIORITY_LOW, NULL);
 
   song_list__populate();
-  for (size_t song_number = 0; song_number < song_list__get_item_count();
-       song_number++) {
-    printf("Song %2d: %s\n", (1 + song_number),
-           song_list__get_name_for_item(song_number));
-  }
+
   clockf_init();
   LCD2004_init();
 
@@ -144,7 +139,6 @@ void menu(void *p) {
       if (gpio__get(button3)) {
         menu_level--;
         new_song = true;
-        xQueueSend(Q_songname, "", 10);
         LCD2004_menu1(song_name);
         vTaskDelay(100);
       }
@@ -191,19 +185,6 @@ void decoder_write(uint8_t address, uint16_t data) {
   gpio__set(CS);
 }
 
-void read_reg(void) {
-  uint8_t byte1 = 0xFF;
-  uint8_t byte2 = 0xFF;
-  gpio__reset(CS);
-  ssp2__exchange_byte(READ);
-  ssp2__exchange_byte(SCI_CLOCKF);
-  byte1 = ssp2__exchange_byte(DUMB);
-  byte2 = ssp2__exchange_byte(DUMB);
-  gpio__set(CS);
-
-  printf("READ: %x %x\n", byte1, byte2);
-}
-
 void mp3_reader_task(void *p) {
   songname_t name;
   songbyte_t chunk;
@@ -224,10 +205,10 @@ void mp3_reader_task(void *p) {
           xQueueSend(Q_songdata, &chunk, portMAX_DELAY);
         }
         f_close(&file);
-        vTaskDelay(10);
+        vTaskDelay(100);
       } else {
         f_close(&file);
-        printf("ERROR: File not found\n");
+        printf("ERROR reader: File not found\n");
       }
     }
   }
