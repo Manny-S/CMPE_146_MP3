@@ -30,7 +30,7 @@ QueueHandle_t Q_songname;
 bool new_song = false;
 QueueHandle_t Q_songdata;
 
-TaskHandle_t MP3PlayPause = NULL;
+TaskHandle_t PausePlayTask = NULL;
 
 const uint32_t spi_clock_khz = 1000;
 
@@ -51,7 +51,7 @@ gpio_s RST;
 gpio_s XDCS;
 
 // buttons
-gpio_s play_pause;
+gpio_s pause_play_bttn;
 gpio_s button1;
 gpio_s button2;
 gpio_s button3;
@@ -61,7 +61,7 @@ void mp3_player_task(void *p);
 void read_reg(void);
 void clockf_init(void);
 void decoder_write(uint8_t address, uint16_t data);
-void play_pause_button(void *p);
+void pause_play_task(void *p);
 void adjust_volume(bool higher);
 void volume_task(void *p);
 void menu(void *p);
@@ -78,7 +78,7 @@ int main(void) {
   RST = gpio__construct_as_output(0, 8);
   XDCS = gpio__construct_as_output(0, 26);
 
-  play_pause = gpio__construct_as_input(1, 19);
+  pause_play_bttn = gpio__construct_as_input(1, 19);
   button1 = gpio__construct_as_input(1, 15);
   button2 = gpio__construct_as_input(0, 30);
   button3 = gpio__construct_as_input(0, 29);
@@ -93,7 +93,7 @@ int main(void) {
 
   xTaskCreate(mp3_reader_task, "mp3_reader", 1024, NULL, PRIORITY_HIGH, NULL);
   xTaskCreate(mp3_player_task, "mp3_player", 1024, NULL, PRIORITY_LOW, NULL);
-  xTaskCreate(play_pause_button, "play_pause", 1024, NULL, PRIORITY_LOW, NULL);
+  xTaskCreate(pause_play_task, "play_pause", 1024, NULL, PRIORITY_LOW, NULL);
   xTaskCreate(volume_task, "volume", 1024, NULL, PRIORITY_LOW, NULL);
   xTaskCreate(menu, "menu", 1024, NULL, PRIORITY_LOW, NULL);
 
@@ -106,7 +106,7 @@ int main(void) {
   clockf_init();
   LCD2004_init();
 
-  MP3PlayPause = xTaskGetHandle("mp3_player");
+  PausePlayTask = xTaskGetHandle("mp3_player");
   vTaskStartScheduler();
   return 0;
 }
@@ -250,27 +250,28 @@ void mp3_player_task(void *p) {
   }
 }
 
-void play_pause_button(void *p) {
-  bool play_status = false;
-  uint8_t alternative_status = 1;
+void pause_play_task(void *p) {
+  bool alt_flag = true;
+  bool pause_play_flag = false;
+
   while (1) {
     vTaskDelay(100);
-    if (gpio__get(play_pause)) {
-      while (gpio__get(play_pause)) {
+    if (gpio__get(pause_play_bttn)) {
+      while (gpio__get(pause_play_bttn)) {
         vTaskDelay(1);
       }
-      play_status = true;
+      pause_play_flag = true;
     } else {
-      play_status = false;
+      pause_play_flag = false;
     }
 
-    if (play_status) {
-      if (alternative_status) {
-        vTaskResume(MP3PlayPause);
-        alternative_status--;
+    if (pause_play_flag) {
+      if (alt_flag) {
+        vTaskResume(PausePlayTask);
+        alt_flag = false;
       } else {
-        vTaskSuspend(MP3PlayPause);
-        alternative_status++;
+        vTaskSuspend(PausePlayTask);
+        alt_flag = true;
       }
     }
     vTaskDelay(1);
