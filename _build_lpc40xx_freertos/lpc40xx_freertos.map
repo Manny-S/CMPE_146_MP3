@@ -205,9 +205,9 @@ __lock___malloc_recursive_mutex
 DREQ                0x1               _build_lpc40xx_freertos/objects/main.o
 Q_songname          0x4               _build_lpc40xx_freertos/objects/main.o
 button2             0x1               _build_lpc40xx_freertos/objects/main.o
+pause_play_bttn     0x1               _build_lpc40xx_freertos/objects/main.o
 button3             0x1               _build_lpc40xx_freertos/objects/main.o
 Q_songdata          0x4               _build_lpc40xx_freertos/objects/main.o
-play_pause          0x1               _build_lpc40xx_freertos/objects/main.o
 button1             0x1               _build_lpc40xx_freertos/objects/main.o
 __lock___at_quick_exit_mutex
                     0x1               /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
@@ -1573,7 +1573,7 @@ END GROUP
                 0x0000000020000000                __base_ram_32k = ORIGIN (ram_32k)
                 0x0000000020008000                __top_ram_32k = (__base_ram_32k + LENGTH (ram_32k))
 
-.text           0x0000000000000000     0xe3bc
+.text           0x0000000000000000     0xe3c4
  FILL mask 0xff
  *(.interrupt_vector_table)
  .interrupt_vector_table
@@ -2406,135 +2406,136 @@ END GROUP
                 0x0000000000006194       0x68 _build_lpc40xx_freertos/objects/main.o
                 0x0000000000006194                mp3_player_task
  .text.mp3_reader_task
-                0x00000000000061fc       0x88 _build_lpc40xx_freertos/objects/main.o
+                0x00000000000061fc       0x8c _build_lpc40xx_freertos/objects/main.o
                 0x00000000000061fc                mp3_reader_task
- .text.play_pause_button
-                0x0000000000006284       0x50 _build_lpc40xx_freertos/objects/main.o
-                0x0000000000006284                play_pause_button
+ .text.pause_play_task
+                0x0000000000006288       0x54 _build_lpc40xx_freertos/objects/main.o
+                0x0000000000006288                pause_play_task
  .text.clockf_init
-                0x00000000000062d4       0x30 _build_lpc40xx_freertos/objects/main.o
-                0x00000000000062d4                clockf_init
+                0x00000000000062dc       0x30 _build_lpc40xx_freertos/objects/main.o
+                0x00000000000062dc                clockf_init
  .text.startup.main
-                0x0000000000006304      0x19c _build_lpc40xx_freertos/objects/main.o
-                0x0000000000006304                main
+                0x000000000000630c      0x19c _build_lpc40xx_freertos/objects/main.o
+                0x000000000000630c                main
  .text.decoder_write
-                0x00000000000064a0       0x34 _build_lpc40xx_freertos/objects/main.o
-                0x00000000000064a0                decoder_write
- .text.volume_C
-                0x00000000000064d4       0x78 _build_lpc40xx_freertos/objects/main.o
-                0x00000000000064d4                volume_C
- .text.Volume_Control
-                0x000000000000654c       0x6c _build_lpc40xx_freertos/objects/main.o
-                0x000000000000654c                Volume_Control
- .text          0x00000000000065b8       0x30 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_aeabi_uldivmod.o)
-                0x00000000000065b8                __aeabi_uldivmod
- .text          0x00000000000065e8      0x2d0 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_udivmoddi4.o)
-                0x00000000000065e8                __udivmoddi4
- .text          0x00000000000068b8        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_dvmd_tls.o)
-                0x00000000000068b8                __aeabi_ldiv0
-                0x00000000000068b8                __aeabi_idiv0
- .text.atoi     0x00000000000068bc        0x8 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-atoi.o)
-                0x00000000000068bc                atoi
- .text.fprintf  0x00000000000068c4       0x24 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-fprintf.o)
-                0x00000000000068c4                fprintf
-                0x00000000000068c4                fiprintf
+                0x00000000000064a8       0x34 _build_lpc40xx_freertos/objects/main.o
+                0x00000000000064a8                decoder_write
+ .text.adjust_volume
+                0x00000000000064dc       0x70 _build_lpc40xx_freertos/objects/main.o
+                0x00000000000064dc                adjust_volume
+ .text.volume_task
+                0x000000000000654c       0x68 _build_lpc40xx_freertos/objects/main.o
+                0x000000000000654c                volume_task
+ .text          0x00000000000065b4       0x30 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_aeabi_uldivmod.o)
+                0x00000000000065b4                __aeabi_uldivmod
+ .text          0x00000000000065e4      0x2d0 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_udivmoddi4.o)
+                0x00000000000065e4                __udivmoddi4
+ .text          0x00000000000068b4        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_dvmd_tls.o)
+                0x00000000000068b4                __aeabi_ldiv0
+                0x00000000000068b4                __aeabi_idiv0
+ .text.atoi     0x00000000000068b8        0x8 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-atoi.o)
+                0x00000000000068b8                atoi
+ .text.fprintf  0x00000000000068c0       0x24 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-fprintf.o)
+                0x00000000000068c0                fprintf
+                0x00000000000068c0                fiprintf
  .text._fputs_r
-                0x00000000000068e8       0xcc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-fputs.o)
-                0x00000000000068e8                _fputs_r
- .text.fputs    0x00000000000069b4       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-fputs.o)
-                0x00000000000069b4                fputs
- .text.getchar  0x00000000000069c4       0x24 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-getchar.o)
-                0x00000000000069c4                getchar
+                0x00000000000068e4       0xcc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-fputs.o)
+                0x00000000000068e4                _fputs_r
+ .text.fputs    0x00000000000069b0       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-fputs.o)
+                0x00000000000069b0                fputs
+ .text.getchar  0x00000000000069c0       0x24 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-getchar.o)
+                0x00000000000069c0                getchar
  .text.__retarget_lock_init_recursive
-                0x00000000000069e8        0x2 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
-                0x00000000000069e8                __retarget_lock_init_recursive
+                0x00000000000069e4        0x2 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
+                0x00000000000069e4                __retarget_lock_init_recursive
  .text.__retarget_lock_acquire_recursive
-                0x00000000000069ea        0x2 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
-                0x00000000000069ea                __retarget_lock_acquire_recursive
+                0x00000000000069e6        0x2 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
+                0x00000000000069e6                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x00000000000069ec        0x2 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
-                0x00000000000069ec                __retarget_lock_release_recursive
- *fill*         0x00000000000069ee        0x2 ff
- .text.malloc   0x00000000000069f0       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-malloc.o)
-                0x00000000000069f0                malloc
- .text.free     0x0000000000006a00       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-malloc.o)
-                0x0000000000006a00                free
- .text.memcpy   0x0000000000006a10       0x1c /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-memcpy-stub.o)
-                0x0000000000006a10                memcpy
- .text.memmove  0x0000000000006a2c       0x34 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-memmove.o)
-                0x0000000000006a2c                memmove
- .text.memset   0x0000000000006a60       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-memset.o)
-                0x0000000000006a60                memset
- .text._free_r  0x0000000000006a70       0x9c /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-freer.o)
-                0x0000000000006a70                _free_r
+                0x00000000000069e8        0x2 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
+                0x00000000000069e8                __retarget_lock_release_recursive
+ *fill*         0x00000000000069ea        0x2 ff
+ .text.malloc   0x00000000000069ec       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-malloc.o)
+                0x00000000000069ec                malloc
+ .text.free     0x00000000000069fc       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-malloc.o)
+                0x00000000000069fc                free
+ .text.memcpy   0x0000000000006a0c       0x1c /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-memcpy-stub.o)
+                0x0000000000006a0c                memcpy
+ .text.memmove  0x0000000000006a28       0x34 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-memmove.o)
+                0x0000000000006a28                memmove
+ .text.memset   0x0000000000006a5c       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-memset.o)
+                0x0000000000006a5c                memset
+ .text._free_r  0x0000000000006a6c       0x9c /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-freer.o)
+                0x0000000000006a6c                _free_r
  .text._malloc_r
-                0x0000000000006b0c       0xb4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-mallocr.o)
-                0x0000000000006b0c                _malloc_r
+                0x0000000000006b08       0xb4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-mallocr.o)
+                0x0000000000006b08                _malloc_r
  .text.__sfputc_r
-                0x0000000000006bc0       0x2e /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf.o)
+                0x0000000000006bbc       0x2e /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf.o)
  .text.__sfputs_r
-                0x0000000000006bee       0x24 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf.o)
-                0x0000000000006bee                __sfputs_r
- *fill*         0x0000000000006c12        0x2 ff
+                0x0000000000006bea       0x24 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf.o)
+                0x0000000000006bea                __sfputs_r
+ *fill*         0x0000000000006c0e        0x2 ff
  .text._vfprintf_r
-                0x0000000000006c14      0x250 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf.o)
-                0x0000000000006c14                _vfiprintf_r
-                0x0000000000006c14                _vfprintf_r
- .text.__cvt    0x0000000000006e64       0xba /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_float.o)
-                0x0000000000006e64                __cvt
+                0x0000000000006c10      0x250 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf.o)
+                0x0000000000006c10                _vfiprintf_r
+                0x0000000000006c10                _vfprintf_r
+ .text.__cvt    0x0000000000006e60       0xba /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_float.o)
+                0x0000000000006e60                __cvt
  .text.__exponent
-                0x0000000000006f1e       0x64 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_float.o)
-                0x0000000000006f1e                __exponent
- *fill*         0x0000000000006f82        0x2 ff
+                0x0000000000006f1a       0x64 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_float.o)
+                0x0000000000006f1a                __exponent
+ *fill*         0x0000000000006f7e        0x2 ff
  .text._printf_float
-                0x0000000000006f84      0x454 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_float.o)
-                0x0000000000006f84                _printf_float
+                0x0000000000006f80      0x454 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_float.o)
+                0x0000000000006f80                _printf_float
  .text._printf_common
-                0x00000000000073d8       0xea /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_i.o)
-                0x00000000000073d8                _printf_common
- *fill*         0x00000000000074c2        0x2 ff
+                0x00000000000073d4       0xea /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000000073d4                _printf_common
+ *fill*         0x00000000000074be        0x2 ff
  .text._printf_i
-                0x00000000000074c4      0x228 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_i.o)
-                0x00000000000074c4                _printf_i
+                0x00000000000074c0      0x228 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000000074c0                _printf_i
  .text._scanf_float
-                0x00000000000076ec      0x3c0 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_float.o)
-                0x00000000000076ec                _scanf_float
- .text.printf   0x0000000000007aac       0x30 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-printf.o)
-                0x0000000000007aac                printf
-                0x0000000000007aac                iprintf
- .text.putchar  0x0000000000007adc       0x28 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-putchar.o)
-                0x0000000000007adc                putchar
- .text._puts_r  0x0000000000007b04       0xdc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-puts.o)
-                0x0000000000007b04                _puts_r
- .text.puts     0x0000000000007be0       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-puts.o)
-                0x0000000000007be0                puts
- .text._sbrk_r  0x0000000000007bf0       0x20 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-sbrkr.o)
-                0x0000000000007bf0                _sbrk_r
- .text.setvbuf  0x0000000000007c10      0x184 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-setvbuf.o)
-                0x0000000000007c10                setvbuf
- .text.nanf     0x0000000000007d94        0xc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-sf_nan.o)
-                0x0000000000007d94                nanf
- .text.sprintf  0x0000000000007da0       0x40 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-sprintf.o)
-                0x0000000000007da0                sprintf
-                0x0000000000007da0                siprintf
+                0x00000000000076e8      0x3c0 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_float.o)
+                0x00000000000076e8                _scanf_float
+ .text.printf   0x0000000000007aa8       0x30 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-printf.o)
+                0x0000000000007aa8                printf
+                0x0000000000007aa8                iprintf
+ .text.putchar  0x0000000000007ad8       0x28 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-putchar.o)
+                0x0000000000007ad8                putchar
+ .text._puts_r  0x0000000000007b00       0xdc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-puts.o)
+                0x0000000000007b00                _puts_r
+ .text.puts     0x0000000000007bdc       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-puts.o)
+                0x0000000000007bdc                puts
+ .text._sbrk_r  0x0000000000007bec       0x20 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-sbrkr.o)
+                0x0000000000007bec                _sbrk_r
+ .text.setvbuf  0x0000000000007c0c      0x184 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-setvbuf.o)
+                0x0000000000007c0c                setvbuf
+ .text.nanf     0x0000000000007d90        0xc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-sf_nan.o)
+                0x0000000000007d90                nanf
+ .text.sprintf  0x0000000000007d9c       0x40 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-sprintf.o)
+                0x0000000000007d9c                sprintf
+                0x0000000000007d9c                siprintf
  .text.strcasecmp
-                0x0000000000007de0       0x38 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strcasecmp.o)
-                0x0000000000007de0                strcasecmp
- .text.strchr   0x0000000000007e18       0x1a /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strchr.o)
-                0x0000000000007e18                strchr
- .text          0x0000000000007e32       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strlen.o)
-                0x0000000000007e32                strlen
- *fill*         0x0000000000007e42        0x2 ff
+                0x0000000000007ddc       0x38 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strcasecmp.o)
+                0x0000000000007ddc                strcasecmp
+ .text.strchr   0x0000000000007e14       0x1a /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strchr.o)
+                0x0000000000007e14                strchr
+ .text          0x0000000000007e2e       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strlen.o)
+                0x0000000000007e2e                strlen
+ *fill*         0x0000000000007e3e        0x2 ff
  .text.strncasecmp
-                0x0000000000007e44       0x44 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strncasecmp.o)
-                0x0000000000007e44                strncasecmp
- .text.strncmp  0x0000000000007e88       0x24 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strncmp.o)
-                0x0000000000007e88                strncmp
- .text.strncpy  0x0000000000007eac       0x26 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strncpy.o)
-                0x0000000000007eac                strncpy
- .text.strstr   0x0000000000007ed2       0x2e /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strstr.o)
-                0x0000000000007ed2                strstr
- .text.sulp     0x0000000000007f00       0x38 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
+                0x0000000000007e40       0x44 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strncasecmp.o)
+                0x0000000000007e40                strncasecmp
+ .text.strncmp  0x0000000000007e84       0x24 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strncmp.o)
+                0x0000000000007e84                strncmp
+ .text.strncpy  0x0000000000007ea8       0x26 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strncpy.o)
+                0x0000000000007ea8                strncpy
+ .text.strstr   0x0000000000007ece       0x2e /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strstr.o)
+                0x0000000000007ece                strstr
+ .text.sulp     0x0000000000007efc       0x38 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
+ *fill*         0x0000000000007f34        0x4 ff
  .text._strtod_l
                 0x0000000000007f38      0xb98 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
                 0x0000000000007f38                _strtod_l
@@ -3005,113 +3006,113 @@ END GROUP
  .rodata.uart_peripheral_ids
                 0x000000000000e01c        0x4 _build_lpc40xx_freertos/objects/uart.o
  .rodata.main.str1.1
-                0x000000000000e020       0x34 _build_lpc40xx_freertos/objects/main.o
-                                         0x3b (size before relaxing)
+                0x000000000000e020       0x3b _build_lpc40xx_freertos/objects/main.o
  .rodata.menu.str1.1
-                0x000000000000e054        0x1 _build_lpc40xx_freertos/objects/main.o
+                0x000000000000e05b        0x1 _build_lpc40xx_freertos/objects/main.o
  .rodata.mp3_reader_task.str1.1
-                0x000000000000e054       0x1b _build_lpc40xx_freertos/objects/main.o
+                0x000000000000e05b       0x1b _build_lpc40xx_freertos/objects/main.o
                                          0x31 (size before relaxing)
  .rodata._ctype_
-                0x000000000000e06f      0x101 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-ctype_.o)
-                0x000000000000e06f                _ctype_
+                0x000000000000e076      0x101 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-ctype_.o)
+                0x000000000000e076                _ctype_
+ *fill*         0x000000000000e177        0x1 ff
  .rodata._global_impure_ptr
-                0x000000000000e170        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-impure.o)
-                0x000000000000e170                _global_impure_ptr
+                0x000000000000e178        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-impure.o)
+                0x000000000000e178                _global_impure_ptr
  .rodata._vfprintf_r.str1.1
-                0x000000000000e174       0x11 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf.o)
+                0x000000000000e17c       0x11 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf.o)
  .rodata._printf_float.str1.1
-                0x000000000000e185       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_float.o)
+                0x000000000000e18d       0x10 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_float.o)
                                          0x12 (size before relaxing)
  .rodata._printf_i.str1.1
-                0x000000000000e195       0x22 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x000000000000e19d       0x22 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfprintf_i.o)
  .rodata._scanf_float.str1.1
-                0x000000000000e1b7        0x5 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_float.o)
+                0x000000000000e1bf        0x5 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_float.o)
                                           0x6 (size before relaxing)
  .rodata._strtod_l.str1.1
-                0x000000000000e1bc        0x5 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
+                0x000000000000e1c4        0x5 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
                                           0xd (size before relaxing)
  .rodata.fpi.7522
-                0x000000000000e1bc       0x14 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
+                0x000000000000e1c4       0x14 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
  .rodata.fpinan.7558
-                0x000000000000e1d0       0x14 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
- *fill*         0x000000000000e1e4        0x4 ff
+                0x000000000000e1d8       0x14 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
+ *fill*         0x000000000000e1ec        0x4 ff
  .rodata.tinytens
-                0x000000000000e1e8       0x28 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
+                0x000000000000e1f0       0x28 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-strtod.o)
  .rodata._dtoa_r.str1.1
-                0x000000000000e210        0xd /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-dtoa.o)
+                0x000000000000e218        0xd /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-dtoa.o)
                                           0xf (size before relaxing)
- *fill*         0x000000000000e21d        0x3 ff
+ *fill*         0x000000000000e225        0x3 ff
  .rodata.__sf_fake_stderr
-                0x000000000000e220       0x20 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-findfp.o)
-                0x000000000000e220                __sf_fake_stderr
+                0x000000000000e228       0x20 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-findfp.o)
+                0x000000000000e228                __sf_fake_stderr
  .rodata.__sf_fake_stdin
-                0x000000000000e240       0x20 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-findfp.o)
-                0x000000000000e240                __sf_fake_stdin
+                0x000000000000e248       0x20 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-findfp.o)
+                0x000000000000e248                __sf_fake_stdin
  .rodata.__sf_fake_stdout
-                0x000000000000e260       0x20 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-findfp.o)
-                0x000000000000e260                __sf_fake_stdout
+                0x000000000000e268       0x20 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-findfp.o)
+                0x000000000000e268                __sf_fake_stdout
  .rodata._C_numeric_locale
-                0x000000000000e280        0xc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lnumeric.o)
-                0x000000000000e280                _C_numeric_locale
+                0x000000000000e288        0xc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lnumeric.o)
+                0x000000000000e288                _C_numeric_locale
  .rodata.str1.1
-                0x000000000000e28c        0xd /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lnumeric.o)
+                0x000000000000e294        0xd /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lnumeric.o)
                                           0x3 (size before relaxing)
  .rodata._setlocale_r.str1.1
-                0x000000000000e28c        0x8 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-locale.o)
+                0x000000000000e294        0x8 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-locale.o)
                                           0x9 (size before relaxing)
  .rodata.str1.1
-                0x000000000000e294        0x2 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-locale.o)
- *fill*         0x000000000000e294        0x4 ff
+                0x000000000000e29c        0x2 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-locale.o)
+ *fill*         0x000000000000e29c        0x4 ff
  .rodata.__mprec_bigtens
-                0x000000000000e298       0x28 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-mprec.o)
-                0x000000000000e298                __mprec_bigtens
+                0x000000000000e2a0       0x28 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-mprec.o)
+                0x000000000000e2a0                __mprec_bigtens
  .rodata.__mprec_tens
-                0x000000000000e2c0       0xc8 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-mprec.o)
-                0x000000000000e2c0                __mprec_tens
+                0x000000000000e2c8       0xc8 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-mprec.o)
+                0x000000000000e2c8                __mprec_tens
  .rodata.p05.7444
-                0x000000000000e388        0xc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-mprec.o)
+                0x000000000000e390        0xc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-mprec.o)
  .rodata._svfprintf_r.str1.1
-                0x000000000000e394       0x11 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-svfprintf.o)
+                0x000000000000e39c       0x11 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-svfprintf.o)
  .rodata.__ssvfscanf_r.str1.1
-                0x000000000000e394        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-svfscanf.o)
- .rodata        0x000000000000e394        0xc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_i.o)
+                0x000000000000e39c        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-svfscanf.o)
+ .rodata        0x000000000000e39c        0xc /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_i.o)
  .rodata._scanf_i.str1.1
-                0x000000000000e3a0       0x12 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_i.o)
+                0x000000000000e3a8       0x12 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_i.o)
  .rodata.str1.1
-                0x000000000000e3b2        0x9 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_i.o)
-                0x000000000000e3bc                . = ALIGN (0x4)
- *fill*         0x000000000000e3bb        0x1 ff
+                0x000000000000e3ba        0x9 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-vfscanf_i.o)
+                0x000000000000e3c4                . = ALIGN (0x4)
+ *fill*         0x000000000000e3c3        0x1 ff
 
-.glue_7         0x000000000000e3bc        0x0
- .glue_7        0x000000000000e3bc        0x0 linker stubs
+.glue_7         0x000000000000e3c4        0x0
+ .glue_7        0x000000000000e3c4        0x0 linker stubs
 
-.glue_7t        0x000000000000e3bc        0x0
- .glue_7t       0x000000000000e3bc        0x0 linker stubs
+.glue_7t        0x000000000000e3c4        0x0
+ .glue_7t       0x000000000000e3c4        0x0 linker stubs
 
-.vfp11_veneer   0x000000000000e3bc        0x0
- .vfp11_veneer  0x000000000000e3bc        0x0 linker stubs
+.vfp11_veneer   0x000000000000e3c4        0x0
+ .vfp11_veneer  0x000000000000e3c4        0x0 linker stubs
 
-.v4_bx          0x000000000000e3bc        0x0
- .v4_bx         0x000000000000e3bc        0x0 linker stubs
+.v4_bx          0x000000000000e3c4        0x0
+ .v4_bx         0x000000000000e3c4        0x0 linker stubs
 
-.iplt           0x000000000000e3bc        0x0
- .iplt          0x000000000000e3bc        0x0 _build_lpc40xx_freertos/objects/entry_point.o
+.iplt           0x000000000000e3c4        0x0
+ .iplt          0x000000000000e3c4        0x0 _build_lpc40xx_freertos/objects/entry_point.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x000000000000e3bc                __exidx_start = .
+                0x000000000000e3c4                __exidx_start = .
 
-.ARM.exidx      0x000000000000e3bc        0x8
+.ARM.exidx      0x000000000000e3c4        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x000000000000e3bc        0x8 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_udivmoddi4.o)
-                0x000000000000e3c4                __exidx_end = .
-                0x000000000000e3c4                _etext = .
+ .ARM.exidx     0x000000000000e3c4        0x8 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_udivmoddi4.o)
+                0x000000000000e3cc                __exidx_end = .
+                0x000000000000e3cc                _etext = .
 
-.rel.dyn        0x000000000000e3c4        0x0
- .rel.iplt      0x000000000000e3c4        0x0 _build_lpc40xx_freertos/objects/entry_point.o
+.rel.dyn        0x000000000000e3cc        0x0
+ .rel.iplt      0x000000000000e3cc        0x0 _build_lpc40xx_freertos/objects/entry_point.o
 
-.data           0x0000000010000000      0x388 load address 0x000000000000e3c4
+.data           0x0000000010000000      0x388 load address 0x000000000000e3cc
  FILL mask 0xff
  *(vtable)
  *(.data*)
@@ -3156,10 +3157,10 @@ END GROUP
                 0x0000000010000388                . = ALIGN (0x4)
                 0x0000000010000388                PROVIDE (_data_end = .)
 
-.igot.plt       0x0000000010000388        0x0 load address 0x000000000000e74c
+.igot.plt       0x0000000010000388        0x0 load address 0x000000000000e754
  .igot.plt      0x0000000010000388        0x0 _build_lpc40xx_freertos/objects/entry_point.o
 
-.bss            0x0000000010000388     0x2180 load address 0x000000000000e74c
+.bss            0x0000000010000388     0x217c load address 0x000000000000e754
                 0x0000000010000388                _bss_start = .
  *(.bss*)
  .bss.FatFs     0x0000000010000388        0x4 _build_lpc40xx_freertos/objects/ff.o
@@ -3275,9 +3276,9 @@ END GROUP
  *fill*         0x00000000100024ca        0x2 
  .bss.memory_write_to_avoid_spurious_interrupt.7702
                 0x00000000100024cc        0x4 _build_lpc40xx_freertos/objects/lpc_peripherals.o
- .bss.MP3PlayPause
+ .bss.PausePlayTask
                 0x00000000100024d0        0x4 _build_lpc40xx_freertos/objects/main.o
-                0x00000000100024d0                MP3PlayPause
+                0x00000000100024d0                PausePlayTask
  .bss.menu_level
                 0x00000000100024d4        0x4 _build_lpc40xx_freertos/objects/main.o
                 0x00000000100024d4                menu_level
@@ -3291,34 +3292,33 @@ END GROUP
                 0x00000000100024e0        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-nano-mallocr.o)
                 0x00000000100024e0                __malloc_sbrk_start
  *(COMMON)
- COMMON         0x00000000100024e4       0x14 _build_lpc40xx_freertos/objects/main.o
+ COMMON         0x00000000100024e4       0x13 _build_lpc40xx_freertos/objects/main.o
                 0x00000000100024e4                RST
                 0x00000000100024e5                DREQ
                 0x00000000100024e8                Q_songname
                 0x00000000100024ec                button2
-                0x00000000100024ed                button3
+                0x00000000100024ed                pause_play_bttn
+                0x00000000100024ee                button3
                 0x00000000100024f0                Q_songdata
-                0x00000000100024f4                play_pause
-                0x00000000100024f5                button1
-                0x00000000100024f6                XDCS
-                0x00000000100024f7                CS
- COMMON         0x00000000100024f8        0x9 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
-                0x00000000100024f8                __lock___atexit_recursive_mutex
-                0x00000000100024f9                __lock___arc4random_mutex
-                0x00000000100024fa                __lock___env_recursive_mutex
-                0x00000000100024fb                __lock___sinit_recursive_mutex
-                0x00000000100024fc                __lock___malloc_recursive_mutex
-                0x00000000100024fd                __lock___at_quick_exit_mutex
-                0x00000000100024fe                __lock___dd_hash_mutex
-                0x00000000100024ff                __lock___tz_mutex
-                0x0000000010002500                __lock___sfp_recursive_mutex
- *fill*         0x0000000010002501        0x3 
- COMMON         0x0000000010002504        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-reent.o)
-                0x0000000010002504                errno
-                0x0000000010002508                . = ALIGN (0x4)
-                0x0000000010002508                PROVIDE (_bss_end = .)
+                0x00000000100024f4                button1
+                0x00000000100024f5                XDCS
+                0x00000000100024f6                CS
+ COMMON         0x00000000100024f7        0x9 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-lock.o)
+                0x00000000100024f7                __lock___atexit_recursive_mutex
+                0x00000000100024f8                __lock___arc4random_mutex
+                0x00000000100024f9                __lock___env_recursive_mutex
+                0x00000000100024fa                __lock___sinit_recursive_mutex
+                0x00000000100024fb                __lock___malloc_recursive_mutex
+                0x00000000100024fc                __lock___at_quick_exit_mutex
+                0x00000000100024fd                __lock___dd_hash_mutex
+                0x00000000100024fe                __lock___tz_mutex
+                0x00000000100024ff                __lock___sfp_recursive_mutex
+ COMMON         0x0000000010002500        0x4 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(lib_a-reent.o)
+                0x0000000010002500                errno
+                0x0000000010002504                . = ALIGN (0x4)
+                0x0000000010002504                PROVIDE (_bss_end = .)
                 [!provide]                        PROVIDE (end = .)
-                0x0000000010002508                PROVIDE (__start_of_unused_ram64 = .)
+                0x0000000010002504                PROVIDE (__start_of_unused_ram64 = .)
                 0x0000000010010000                PROVIDE (__end_of_unused_ram64 = __top_ram_64k)
 
 .persistent_ram2
@@ -3330,11 +3330,11 @@ END GROUP
                 0x0000000020000028                PROVIDE (_heap_start = .)
                 0x0000000020008000                PROVIDE (_heap_end = __top_ram_32k)
                 0x0000000010010000                PROVIDE (_estack = DEFINED (__user_stack_top)?__user_stack_top:__top_ram_64k)
-                0x000000000000e3c4                PROVIDE (_bdata_lma = LOADADDR (.data))
+                0x000000000000e3cc                PROVIDE (_bdata_lma = LOADADDR (.data))
                 0x0000000010000000                PROVIDE (_bdata_vma = ADDR (.data))
 OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000    0x28eb5
+.debug_info     0x0000000000000000    0x28eb6
  .debug_info    0x0000000000000000      0xb13 _build_lpc40xx_freertos/objects/entry_point.o
  .debug_info    0x0000000000000b13      0xd91 _build_lpc40xx_freertos/objects/interrupt_vector_table.o
  .debug_info    0x00000000000018a4      0x454 _build_lpc40xx_freertos/objects/clock.o
@@ -3376,7 +3376,7 @@ OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
  .debug_info    0x00000000000247c3      0x978 _build_lpc40xx_freertos/objects/lpc_peripherals.o
  .debug_info    0x000000000002513b      0xf3e _build_lpc40xx_freertos/objects/ssp2.o
  .debug_info    0x0000000000026079     0x12e7 _build_lpc40xx_freertos/objects/uart.o
- .debug_info    0x0000000000027360     0x1b55 _build_lpc40xx_freertos/objects/main.o
+ .debug_info    0x0000000000027360     0x1b56 _build_lpc40xx_freertos/objects/main.o
 
 .debug_abbrev   0x0000000000000000     0x6e36
  .debug_abbrev  0x0000000000000000      0x24e _build_lpc40xx_freertos/objects/entry_point.o
@@ -3552,7 +3552,7 @@ OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
  .debug_ranges  0x0000000000001c68       0xd0 _build_lpc40xx_freertos/objects/uart.o
  .debug_ranges  0x0000000000001d38       0x98 _build_lpc40xx_freertos/objects/main.o
 
-.debug_line     0x0000000000000000    0x137bd
+.debug_line     0x0000000000000000    0x1379d
  .debug_line    0x0000000000000000      0x405 _build_lpc40xx_freertos/objects/entry_point.o
  .debug_line    0x0000000000000405      0x442 _build_lpc40xx_freertos/objects/interrupt_vector_table.o
  .debug_line    0x0000000000000847      0x24e _build_lpc40xx_freertos/objects/clock.o
@@ -3594,9 +3594,9 @@ OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
  .debug_line    0x0000000000011d63      0x3fd _build_lpc40xx_freertos/objects/lpc_peripherals.o
  .debug_line    0x0000000000012160      0x4f6 _build_lpc40xx_freertos/objects/ssp2.o
  .debug_line    0x0000000000012656      0x867 _build_lpc40xx_freertos/objects/uart.o
- .debug_line    0x0000000000012ebd      0x900 _build_lpc40xx_freertos/objects/main.o
+ .debug_line    0x0000000000012ebd      0x8e0 _build_lpc40xx_freertos/objects/main.o
 
-.debug_str      0x0000000000000000     0x6d5e
+.debug_str      0x0000000000000000     0x6d56
  .debug_str     0x0000000000000000      0x674 _build_lpc40xx_freertos/objects/entry_point.o
                                         0x730 (size before relaxing)
  .debug_str     0x0000000000000674      0x16c _build_lpc40xx_freertos/objects/interrupt_vector_table.o
@@ -3679,8 +3679,8 @@ OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
                                         0xb3a (size before relaxing)
  .debug_str     0x00000000000067f8      0x39d _build_lpc40xx_freertos/objects/uart.o
                                         0xa03 (size before relaxing)
- .debug_str     0x0000000000006b95      0x1c9 _build_lpc40xx_freertos/objects/main.o
-                                        0xca0 (size before relaxing)
+ .debug_str     0x0000000000006b95      0x1c1 _build_lpc40xx_freertos/objects/main.o
+                                        0xc98 (size before relaxing)
 
 .comment        0x0000000000000000       0x76
  .comment       0x0000000000000000       0x76 _build_lpc40xx_freertos/objects/entry_point.o
@@ -4111,7 +4111,7 @@ OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
  .debug_frame   0x0000000000004768       0x38 /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_fixdfdi.o)
  .debug_frame   0x00000000000047a0       0x2c /Users/Manny/CMPE_146_MP3/toolchains/mac/gcc-arm-none-eabi-8-2019-q3-update/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7e-m+fp/hard/libgcc.a(_fixunsdfdi.o)
 
-.debug_loc      0x0000000000000000    0x13ca3
+.debug_loc      0x0000000000000000    0x13bb3
  .debug_loc     0x0000000000000000       0x4c _build_lpc40xx_freertos/objects/interrupt_vector_table.o
  .debug_loc     0x000000000000004c       0x23 _build_lpc40xx_freertos/objects/clock.o
  .debug_loc     0x000000000000006f       0x3f _build_lpc40xx_freertos/objects/crash.o
@@ -4148,4 +4148,4 @@ OUTPUT(_build_lpc40xx_freertos/lpc40xx_freertos.elf elf32-littlearm)
  .debug_loc     0x0000000000012b9a      0x221 _build_lpc40xx_freertos/objects/lpc_peripherals.o
  .debug_loc     0x0000000000012dbb      0x232 _build_lpc40xx_freertos/objects/ssp2.o
  .debug_loc     0x0000000000012fed      0x8a4 _build_lpc40xx_freertos/objects/uart.o
- .debug_loc     0x0000000000013891      0x412 _build_lpc40xx_freertos/objects/main.o
+ .debug_loc     0x0000000000013891      0x322 _build_lpc40xx_freertos/objects/main.o

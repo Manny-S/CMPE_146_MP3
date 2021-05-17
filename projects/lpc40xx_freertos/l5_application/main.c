@@ -226,6 +226,7 @@ void mp3_reader_task(void *p) {
         f_close(&file);
         vTaskDelay(10);
       } else {
+        f_close(&file);
         printf("ERROR: File not found\n");
       }
     }
